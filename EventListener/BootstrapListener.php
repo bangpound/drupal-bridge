@@ -5,6 +5,10 @@ use Bangpound\Bridge\Drupal\BootstrapEvents;
 use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class BootstrapListener
+ * @package Bangpound\Bridge\Drupal\EventListener
+ */
 class BootstrapListener implements EventSubscriberInterface
 {
     /**
