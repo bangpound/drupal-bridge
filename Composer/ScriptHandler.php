@@ -4,7 +4,6 @@ namespace Bangpound\Bridge\Drupal\Composer;
 
 use Bangpound\Bridge\Drupal\Autoload\ClassMapGenerator;
 use Composer\Script\CommandEvent;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Filesystem\Filesystem;
 
 class ScriptHandler
@@ -67,7 +66,6 @@ class ScriptHandler
         return $options;
     }
 
-
     /**
      * Paths in Drupal root to scan for classes.
      *
@@ -94,7 +92,7 @@ class ScriptHandler
         'modules', 'themes', 'plugins',
     );
 
-    public static function dumpAutoload(Event $event)
+    public static function dumpAutoload(CommandEvent $event)
     {
         $cwd = getcwd();
         $io = $event->getIO();
