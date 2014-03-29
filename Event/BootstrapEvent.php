@@ -8,10 +8,12 @@ use Symfony\Component\EventDispatcher\Event;
 class BootstrapEvent extends Event
 {
     private $bootstrap;
+    private $phase;
 
-    public function __construct(Bootstrap $bootstrap)
+    public function __construct(Bootstrap $bootstrap, $phase = null)
     {
         $this->bootstrap = $bootstrap;
+        $this->phase = $phase;
     }
 
     /**
@@ -20,5 +22,10 @@ class BootstrapEvent extends Event
     public function getBootstrap()
     {
         return $this->bootstrap;
+    }
+
+    public function getPhase()
+    {
+        return $this->phase;
     }
 }
