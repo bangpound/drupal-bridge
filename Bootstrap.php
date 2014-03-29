@@ -2,6 +2,7 @@
 
 namespace Bangpound\Bridge\Drupal;
 
+use Bangpound\Bridge\Drupal\Event\GetCallableEvent;
 use Drupal\Core\Bootstrap as BaseBootstrap;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -17,7 +18,13 @@ class Bootstrap extends BaseBootstrap
      */
     protected function call($phase = NULL)
     {
-        $this->dispatcher->dispatch(BootstrapEvents::preEvent($phase));
+        $event = new GetCallableEvent($this);
+        $this->dispatcher->dispatch(BootstrapEvents::preEvent($phase), $event);
+
+        if ($event->hasCallable()) {
+            $this[$phase] = $this->share($event->getCallable());
+        }
+
         parent::call($phase);
         $this->dispatcher->dispatch(BootstrapEvents::postEvent($phase));
     }

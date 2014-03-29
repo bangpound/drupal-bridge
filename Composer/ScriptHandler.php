@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Bundle\DrupalBundle\Composer;
+namespace Bangpound\Bridge\Drupal\Composer;
 
 use Composer\Script\CommandEvent;
 use Symfony\Component\Filesystem\Filesystem;
