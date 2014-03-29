@@ -1,0 +1,25 @@
+{
+    "name": "bangpound/drupal-bridge",
+    "description": "Symfony Drupal bridge",
+    "require": {
+        "bangpound/drupal-bootstrap": "1.1.*@dev",
+        "bangpound/legacy-php-http-kernel": "1.1.*@dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Benjamin Doherty",
+            "email": "bjd@bangpound.org"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Bangpound\\Bridge\\Drupal\\": "" }
+    },
+    "target-dir": "Bangpound/Bridge/Drupal",
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
