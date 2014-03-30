@@ -2,6 +2,7 @@
 namespace Bangpound\Bridge\Drupal\Autoload;
 
 use Composer\Autoload\ClassMapGenerator as BaseGenerator;
+use Composer\IO\IOInterface;
 use Symfony\Component\Finder\Finder;
 
 class ClassMapGenerator extends BaseGenerator
@@ -34,7 +35,7 @@ class ClassMapGenerator extends BaseGenerator
     /**
      * {@inheritdoc}
      */
-    public static function createMap($path, $whitelist = null)
+    public static function createMap($path, $whitelist = null, IOInterface $io = null)
     {
         if (is_string($path)) {
             if (is_file($path)) {
