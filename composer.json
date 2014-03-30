@@ -4,6 +4,7 @@
     "suggest": {
         "bangpound/drupal-bootstrap": "Replace Drupal 7 bootstrap with a Pimple container",
         "bangpound/legacy-php-http-kernel": "Run bad controllers on the Symfony kernel",
+        "symfony/class-loader": "Replace Drupal's class registry with Symfony's class loader",
         "drufony/druplex": "Drupal inside Silex",
         "drufony/drufony": "Drupal inside Symfony Standard Edition"
     },
