@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bjd
- * Date: 3/30/14
- * Time: 1:29 AM
- */
 
 namespace Bangpound\Bridge\Drupal\Event;
 
