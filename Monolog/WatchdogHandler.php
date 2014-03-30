@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Brudge\Drupal\Monolog;
+namespace Bangpound\Bridge\Drupal\Monolog;
 
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
