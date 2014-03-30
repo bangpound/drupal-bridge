@@ -9,12 +9,21 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class AutoloadListener implements EventSubscriberInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return array(
+            BootstrapEvents::FILTER_DATABASE => array('onBootstrapDatabase', -8),
+        );
+    }
 
     /**
      * Listener disables the Drupal registry and replaces it with
      * a set of class maps.
      */
-    public function afterBootstrapDatabase(BootstrapEvent $event)
+    public function onBootstrapDatabase(BootstrapEvent $event)
     {
         spl_autoload_unregister('drupal_autoload_class');
         spl_autoload_unregister('drupal_autoload_interface');
@@ -40,15 +49,5 @@ class AutoloadListener implements EventSubscriberInterface
                 $loader->register(true);
             }
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return array(
-            BootstrapEvents::DATABASE => array('afterBootstrapDatabase', -8),
-        );
     }
 }

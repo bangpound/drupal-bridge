@@ -3,10 +3,12 @@
 namespace Bangpound\Bridge\Drupal;
 
 use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
-use Drupal\Core\Bootstrap as BaseBootstrap;
+use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
+use Drupal\Core\AbstractBootstrap;
+use Drupal\Core\BootstrapPhases;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Bootstrap extends BaseBootstrap
+class Bootstrap extends AbstractBootstrap
 {
     /**
      * @var EventDispatcherInterface
@@ -14,13 +16,25 @@ class Bootstrap extends BaseBootstrap
     private $dispatcher;
 
     /**
-     * @param null $phase
+     * @param  null       $phase
+     * @return mixed|void
      */
     protected function call($phase = NULL)
     {
         if (isset($phase)) {
-            $event = new BootstrapEvent($this, $phase);
+            $event = new GetCallableForPhase($phase);
             $eventName = BootstrapEvents::getEventNameForPhase($phase);
+
+            $this->dispatcher->dispatch($eventName, $event);
+
+            if ($event->hasCallable()) {
+                $callable = $event->getCallable();
+                $callable();
+            }
+
+            $event = new BootstrapEvent($phase);
+            $eventName = BootstrapEvents::filterEventNameForPhase($phase);
+
             $this->dispatcher->dispatch($eventName, $event);
         }
     }
@@ -39,5 +53,13 @@ class Bootstrap extends BaseBootstrap
     public function getEventDispatcher()
     {
         return $this->dispatcher;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getPhases()
+    {
+        return array_keys(BootstrapPhases::get());
     }
 }

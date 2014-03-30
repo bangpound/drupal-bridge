@@ -2,7 +2,8 @@
 namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
+use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
+use Drupal\Core\BootstrapPhases;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -11,14 +12,22 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class BootstrapListener implements EventSubscriberInterface
 {
-    /**
-     * @param BootstrapEvent $event
-     */
-    public function onBootstrapEvent(BootstrapEvent $event)
+    private $phases;
+
+    public function __construct()
     {
-        $bootstrap = $event->getBootstrap();
+        $this->phases = BootstrapPhases::get();
+    }
+
+    /**
+     * @param \Bangpound\Bridge\Drupal\Event\GetCallableForPhase $event
+     */
+    public function onBootstrapEvent(GetCallableForPhase $event)
+    {
         $phase = $event->getPhase();
-        $bootstrap[$phase];
+        if ($this->phases[$phase]) {
+            $event->setCallable($this->phases[$phase]);
+        }
     }
 
     /**
@@ -27,14 +36,14 @@ class BootstrapListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            BootstrapEvents::CONFIGURATION => array('onBootstrapEvent'),
-            BootstrapEvents::PAGE_CACHE => array('onBootstrapEvent'),
-            BootstrapEvents::DATABASE => array('onBootstrapEvent'),
-            BootstrapEvents::VARIABLES => array('onBootstrapEvent'),
-            BootstrapEvents::SESSION => array('onBootstrapEvent'),
-            BootstrapEvents::PAGE_HEADER => array('onBootstrapEvent'),
-            BootstrapEvents::LANGUAGE => array('onBootstrapEvent'),
-            BootstrapEvents::FULL => array('onBootstrapEvent'),
+            BootstrapEvents::GET_CONFIGURATION => array('onBootstrapEvent'),
+            BootstrapEvents::GET_PAGE_CACHE => array('onBootstrapEvent'),
+            BootstrapEvents::GET_DATABASE => array('onBootstrapEvent'),
+            BootstrapEvents::GET_VARIABLES => array('onBootstrapEvent'),
+            BootstrapEvents::GET_SESSION => array('onBootstrapEvent'),
+            BootstrapEvents::GET_PAGE_HEADER => array('onBootstrapEvent'),
+            BootstrapEvents::GET_LANGUAGE => array('onBootstrapEvent'),
+            BootstrapEvents::GET_FULL => array('onBootstrapEvent'),
         );
     }
 }
