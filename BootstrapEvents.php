@@ -2,12 +2,22 @@
 
 namespace Bangpound\Bridge\Drupal;
 
+use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
+
 /**
  * Class BootstrapEvents
  * @package Bangpound\Bridge\Drupal
  */
 final class BootstrapEvents
 {
+    /**
+     * The bootstrap phases are dispatched as events so that
+     * the process can be controled by the Symfony kernel.
+     *
+     * The event listener receives a BootstrapEvent instance.
+     *
+     * @var string
+     */
     const CONFIGURATION = 'drupal_bootstrap.configuration';
     const PAGE_CACHE = 'drupal_bootstrap.page_cache';
     const DATABASE = 'drupal_bootstrap.database';
