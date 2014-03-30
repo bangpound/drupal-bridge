@@ -31,7 +31,7 @@ class GetCallableForPhase extends BootstrapEvent
      */
     public function setCallable(callable $callable)
     {
-        if (!is_object($callable) || !method_exists($callable, '__invoke')) {
+        if (is_object($callable) && method_exists($callable, '__invoke')) {
             $this->callable = $callable;
 
             $this->stopPropagation();
