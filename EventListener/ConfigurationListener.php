@@ -25,6 +25,7 @@ class ConfigurationListener implements EventSubscriberInterface
             BootstrapEvents::FILTER_CONFIGURATION => array(
                 array('startTimer', -16),
                 array('initializeSettings', -20),
+                array('generateSessionName', -24),
             )
         );
     }
