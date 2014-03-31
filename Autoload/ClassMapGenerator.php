@@ -5,6 +5,10 @@ use Composer\Autoload\ClassMapGenerator as BaseGenerator;
 use Composer\IO\IOInterface;
 use Symfony\Component\Finder\Finder;
 
+/**
+ * Class ClassMapGenerator
+ * @package Bangpound\Bridge\Drupal\Autoload
+ */
 class ClassMapGenerator extends BaseGenerator
 {
     /**

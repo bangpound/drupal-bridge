@@ -15,7 +15,10 @@ class PageHeaderListener implements EventSubscriberInterface
     {
         return array(
             BootstrapEvents::GET_PAGE_HEADER => array(
-                array('onBootstrapPageHeader', 8),
+                array('onBootstrapPageHeader'),
+            ),
+            BootstrapEvents::FILTER_PAGE_HEADER => array(
+                array('sendResponseHeaders'),
             ),
         );
     }
@@ -35,7 +38,7 @@ class PageHeaderListener implements EventSubscriberInterface
         );
     }
 
-    public function sendResponseHeaders()
+    public function sendResponseHeaders(BootstrapEvents $event)
     {
         if (!drupal_is_cli()) {
             // ob_start();

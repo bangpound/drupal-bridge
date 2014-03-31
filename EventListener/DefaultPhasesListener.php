@@ -7,16 +7,16 @@ use Drupal\Core\BootstrapPhases;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class BootstrapListener
+ * Class DefaultPhasesListener
  * @package Bangpound\Bridge\Drupal\EventListener
  */
-class BootstrapListener implements EventSubscriberInterface
+class DefaultPhasesListener implements EventSubscriberInterface
 {
     private $phases;
 
     public function __construct()
     {
-        $this->phases = BootstrapPhases::get();
+        $this->phases = new BootstrapPhases();
     }
 
     /**

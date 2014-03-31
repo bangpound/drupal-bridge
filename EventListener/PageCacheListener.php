@@ -18,7 +18,9 @@ class PageCacheListener implements EventSubscriberInterface
                 array('onBootstrapPageCache', 8),
             ),
             BootstrapEvents::FILTER_PAGE_CACHE => array(
+                array('getCacheMode', -8),
                 array('denyBlockedIpAddress', -12),
+                array('serveCachedPage', -16),
             ),
         );
     }

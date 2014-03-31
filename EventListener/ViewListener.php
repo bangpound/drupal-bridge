@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 
 /**
  * Class ViewListener
- * @package Bangpound\Drupal\EventListener
+ * @package Bangpound\Bridge\Drupal\EventListener
  */
 class ViewListener
 {
@@ -25,7 +25,7 @@ class ViewListener
     }
 
     /**
-     *
+     * Drupal may return a string or a render array from its controllers.
      */
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
@@ -34,6 +34,9 @@ class ViewListener
         if ((is_string($page_callback_result) || is_array($page_callback_result)) && $this->matcher->matches($request)) {
             $router_item = $request->attributes->get('_router_item', array());
             $default_delivery_callback = (isset($router_item) && $router_item) ? $router_item['delivery_callback'] : NULL;
+
+            // This renders controller result into an output buffer, so it must be followed by the
+            // OutputBufferListener.
             drupal_deliver_page($page_callback_result, $default_delivery_callback);
         }
     }

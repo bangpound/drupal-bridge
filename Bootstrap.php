@@ -8,6 +8,10 @@ use Drupal\Core\AbstractBootstrap;
 use Drupal\Core\BootstrapPhases;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * Class Bootstrap
+ * @package Bangpound\Bridge\Drupal
+ */
 class Bootstrap extends AbstractBootstrap
 {
     /**
@@ -60,6 +64,8 @@ class Bootstrap extends AbstractBootstrap
      */
     protected function getPhases()
     {
-        return array_keys(BootstrapPhases::get());
+        $phases = new BootstrapPhases();
+
+        return $phases->keys();
     }
 }

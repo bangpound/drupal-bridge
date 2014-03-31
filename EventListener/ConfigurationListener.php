@@ -23,9 +23,17 @@ class ConfigurationListener implements EventSubscriberInterface
                 array('onBootstrapConfiguration', 8),
             ),
             BootstrapEvents::FILTER_CONFIGURATION => array(
-                array('startTimer', -16),
-                array('initializeSettings', -20),
-                array('generateSessionName', -24),
+                array('setErrorHandling', -1),
+
+                array('initializeEnvironment', -2),
+                array('setRequestPath', -2),
+                array('setErrorReporting', -2),
+                array('overridePhpSettings', -2),
+
+                array('startTimer', -3),
+
+                array('initializeSettings', -4),
+                array('generateSessionName', -4),
             )
         );
     }
@@ -59,7 +67,77 @@ class ConfigurationListener implements EventSubscriberInterface
      */
     public function initializeEnvironment(BootstrapEvent $event)
     {
-        drupal_environment_initialize();
+        if (!isset($_SERVER['HTTP_REFERER'])) {
+            $_SERVER['HTTP_REFERER'] = '';
+        }
+        if (!isset($_SERVER['SERVER_PROTOCOL']) || ($_SERVER['SERVER_PROTOCOL'] != 'HTTP/1.0' && $_SERVER['SERVER_PROTOCOL'] != 'HTTP/1.1')) {
+            $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.0';
+        }
+
+        if (isset($_SERVER['HTTP_HOST'])) {
+            // As HTTP_HOST is user input, ensure it only contains characters allowed
+            // in hostnames. See RFC 952 (and RFC 2181).
+            // $_SERVER['HTTP_HOST'] is lowercased here per specifications.
+            $_SERVER['HTTP_HOST'] = strtolower($_SERVER['HTTP_HOST']);
+            if (!drupal_valid_http_host($_SERVER['HTTP_HOST'])) {
+                // HTTP_HOST is invalid, e.g. if containing slashes it may be an attack.
+                header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request');
+                exit;
+            }
+        } else {
+            // Some pre-HTTP/1.1 clients will not send a Host header. Ensure the key is
+            // defined for E_ALL compliance.
+            $_SERVER['HTTP_HOST'] = '';
+        }
+    }
+
+    /**
+     * @param BootstrapEvent $event
+     */
+    public function setRequestPath(BootstrapEvent $event)
+    {
+        // When clean URLs are enabled, emulate ?q=foo/bar using REQUEST_URI. It is
+        // not possible to append the query string using mod_rewrite without the B
+        // flag (this was added in Apache 2.2.8), because mod_rewrite unescapes the
+        // path before passing it on to PHP. This is a problem when the path contains
+        // e.g. "&" or "%" that have special meanings in URLs and must be encoded.
+        $_GET['q'] = request_path();
+    }
+
+    /**
+     * @param BootstrapEvent $event
+     */
+    public function setErrorReporting(BootstrapEvent $event)
+    {
+        // Enforce E_ALL, but allow users to set levels not part of E_ALL.
+        error_reporting(E_ALL | error_reporting());
+    }
+
+    /**
+     * @param BootstrapEvent $event
+     */
+    public function overridePhpSettings(BootstrapEvent $event)
+    {
+        // Override PHP settings required for Drupal to work properly.
+        // sites/default/default.settings.php contains more runtime settings.
+        // The .htaccess file contains settings that cannot be changed at runtime.
+
+        // Don't escape quotes when reading files from the database, disk, etc.
+        ini_set('magic_quotes_runtime', '0');
+        // Use session cookies, not transparent sessions that puts the session id in
+        // the query string.
+        ini_set('session.use_cookies', '1');
+        ini_set('session.use_only_cookies', '1');
+        ini_set('session.use_trans_sid', '0');
+        // Don't send HTTP headers using PHP's session handler.
+        // An empty string is used here to disable the cache limiter.
+        ini_set('session.cache_limiter', '');
+        // Use httponly session cookies.
+        ini_set('session.cookie_httponly', '1');
+
+        // Set sane locale settings, to ensure consistent string, dates, times and
+        // numbers handling.
+        setlocale(LC_ALL, 'C');
     }
 
     /**
@@ -120,7 +198,10 @@ class ConfigurationListener implements EventSubscriberInterface
         $base_insecure_url = str_replace('https://', 'http://', $base_url);
     }
 
-    public function generateSessionName()
+    /**
+     * @param BootstrapEvent $event
+     */
+    public function generateSessionName(BootstrapEvent $event)
     {
         global $cookie_domain, $base_url, $is_https;
 
