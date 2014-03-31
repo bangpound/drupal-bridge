@@ -28,8 +28,8 @@ class FullListener implements EventSubscriberInterface
                 array('onBootstrapFull', 8),
             ),
             BootstrapEvents::FILTER_FULL => array(
-                array('initializeTheme', -8),
-                array('hookInit', -12),
+                array('initializeTheme'),
+                array('hookInit'),
             ),
         );
     }

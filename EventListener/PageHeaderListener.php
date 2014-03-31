@@ -6,6 +6,10 @@ use Bangpound\Bridge\Drupal\BootstrapEvents;
 use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class PageHeaderListener
+ * @package Bangpound\Bridge\Drupal\EventListener
+ */
 class PageHeaderListener implements EventSubscriberInterface
 {
     /**

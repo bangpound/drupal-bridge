@@ -23,17 +23,14 @@ class ConfigurationListener implements EventSubscriberInterface
                 array('onBootstrapConfiguration', 8),
             ),
             BootstrapEvents::FILTER_CONFIGURATION => array(
-                array('setErrorHandling', -1),
-
-                array('initializeEnvironment', -2),
-                array('setRequestPath', -2),
-                array('setErrorReporting', -2),
-                array('overridePhpSettings', -2),
-
-                array('startTimer', -3),
-
-                array('initializeSettings', -4),
-                array('generateSessionName', -4),
+                array('setErrorHandling'),
+                array('initializeEnvironment'),
+                array('setRequestPath'),
+                array('setErrorReporting'),
+                array('overridePhpSettings'),
+                array('startTimer'),
+                array('initializeSettings'),
+                array('generateSessionName'),
             )
         );
     }

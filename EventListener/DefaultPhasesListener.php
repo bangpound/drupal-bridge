@@ -3,7 +3,6 @@ namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Bangpound\Bridge\Drupal\BootstrapEvents;
 use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
-use Drupal\Core\BootstrapPhases;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -13,11 +12,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class DefaultPhasesListener implements EventSubscriberInterface
 {
     private $phases;
-
-    public function __construct()
-    {
-        $this->phases = new BootstrapPhases();
-    }
 
     /**
      * @param \Bangpound\Bridge\Drupal\Event\GetCallableForPhase $event
@@ -37,13 +31,13 @@ class DefaultPhasesListener implements EventSubscriberInterface
     {
         return array(
             BootstrapEvents::GET_CONFIGURATION => array('onBootstrapEvent'),
-            BootstrapEvents::GET_PAGE_CACHE => array('onBootstrapEvent'),
-            BootstrapEvents::GET_DATABASE => array('onBootstrapEvent'),
-            BootstrapEvents::GET_VARIABLES => array('onBootstrapEvent'),
-            BootstrapEvents::GET_SESSION => array('onBootstrapEvent'),
-            BootstrapEvents::GET_PAGE_HEADER => array('onBootstrapEvent'),
-            BootstrapEvents::GET_LANGUAGE => array('onBootstrapEvent'),
-            BootstrapEvents::GET_FULL => array('onBootstrapEvent'),
+            BootstrapEvents::GET_PAGE_CACHE    => array('onBootstrapEvent'),
+            BootstrapEvents::GET_DATABASE      => array('onBootstrapEvent'),
+            BootstrapEvents::GET_VARIABLES     => array('onBootstrapEvent'),
+            BootstrapEvents::GET_SESSION       => array('onBootstrapEvent'),
+            BootstrapEvents::GET_PAGE_HEADER   => array('onBootstrapEvent'),
+            BootstrapEvents::GET_LANGUAGE      => array('onBootstrapEvent'),
+            BootstrapEvents::GET_FULL          => array('onBootstrapEvent'),
         );
     }
 }

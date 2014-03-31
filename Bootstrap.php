@@ -5,7 +5,6 @@ namespace Bangpound\Bridge\Drupal;
 use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
 use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
 use Drupal\Core\AbstractBootstrap;
-use Drupal\Core\BootstrapPhases;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -18,6 +17,8 @@ class Bootstrap extends AbstractBootstrap
      * @var EventDispatcherInterface
      */
     private $dispatcher;
+
+    private $phases;
 
     /**
      * @param  null       $phase
@@ -64,8 +65,6 @@ class Bootstrap extends AbstractBootstrap
      */
     protected function getPhases()
     {
-        $phases = new BootstrapPhases();
-
-        return $phases->keys();
+        return range(0,7);
     }
 }

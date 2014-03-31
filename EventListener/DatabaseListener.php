@@ -16,10 +16,10 @@ class DatabaseListener implements EventSubscriberInterface
                 array('onBootstrapDatabase', 8),
             ),
             BootstrapEvents::FILTER_DATABASE => array(
-                array('redirectToInstall', -8),
-                array('testSettings', -12),
-                array('initializeDatabaseSystem', -16),
-                array('registerAutoloadFunctions', -20),
+                array('redirectToInstall'),
+                array('testSettings'),
+                array('initializeDatabaseSystem'),
+                array('registerAutoloadFunctions'),
             ),
         );
     }
