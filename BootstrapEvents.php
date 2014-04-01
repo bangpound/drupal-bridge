@@ -54,7 +54,7 @@ final class BootstrapEvents
 
     /**
      * @param $phase
-     * @return mixed
+     * @return string
      */
     public static function getEventNameForPhase($phase)
     {
@@ -74,7 +74,7 @@ final class BootstrapEvents
 
     /**
      * @param $phase
-     * @return mixed
+     * @return string
      */
     public static function filterEventNameForPhase($phase)
     {

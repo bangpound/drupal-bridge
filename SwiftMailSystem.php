@@ -717,7 +717,7 @@ class SwiftMailSystem implements \MailSystemInterface
      * The returned e-mail headers could be provided by Drupal, but should be
      * ignored in order to make Swift Mailer work as smooth as possible.
      *
-     * @return array
+     * @return string[]
      *               A list of e-mail headers which could be provided by Drupal, but which
      *               should be ignored.
      */
