@@ -35,11 +35,9 @@ class SwiftMailSystem implements \MailSystemInterface
      */
     private $mailer;
 
-    public function __construct()
+    public function __construct(\Swift_Mailer $mailer)
     {
-        /** @var \Symfony\Component\DependencyInjection\ContainerInterface $container */
-        $container = $GLOBALS['service_container'];
-        $this->mailer = $container->get('mailer');
+        $this->mailer = $mailer;
     }
 
     /**
