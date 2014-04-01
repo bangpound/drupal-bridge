@@ -18,8 +18,6 @@ class Bootstrap extends AbstractBootstrap
      */
     private $dispatcher;
 
-    private $phases;
-
     /**
      * @param  null       $phase
      * @return mixed|void
