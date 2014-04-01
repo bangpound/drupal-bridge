@@ -19,7 +19,6 @@ class PageCacheListener implements EventSubscriberInterface
                 array('onBootstrapPageCache', 8),
             ),
             BootstrapEvents::FILTER_PAGE_CACHE => array(
-                array('getCacheMode'),
                 array('denyBlockedIpAddress'),
                 array('serveCachedPage'),
             ),
@@ -48,7 +47,7 @@ class PageCacheListener implements EventSubscriberInterface
         );
     }
 
-    public function getCacheMode(BootstrapEvent $event)
+    private function getCacheMode()
     {
         // Check for a cache mode force from settings.php.
         if (variable_get('page_cache_without_database')) {
