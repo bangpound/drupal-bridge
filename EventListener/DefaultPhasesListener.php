@@ -3,6 +3,7 @@ namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Bangpound\Bridge\Drupal\BootstrapEvents;
 use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
+use Drupal\Core\BootstrapPhases;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -12,6 +13,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class DefaultPhasesListener implements EventSubscriberInterface
 {
     private $phases;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->phases = BootstrapPhases::all();
+    }
 
     /**
      * @param \Bangpound\Bridge\Drupal\Event\GetCallableForPhase $event
