@@ -15,14 +15,12 @@ class Controller
      * This assumes that there are kernel event listeners who will convert
      * the controller result into a Symfony response.
      *
-     * @param $_router_item
+     * @param $router_item
      * @return int|mixed
      * @see menu_execute_active_handler()
      */
-    public function deliverAction($_router_item)
+    public function deliverAction($router_item)
     {
-        $router_item = $_router_item;
-
         if ($router_item['access']) {
             if ($router_item['include_file']) {
                 require_once DRUPAL_ROOT . '/' . $router_item['include_file'];
@@ -38,7 +36,7 @@ class Controller
     /**
      * Controller returns the page callback result as a Symfony response.
      *
-     * @param $_router_item
+     * @param $router_item
      * @throws \Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
@@ -46,9 +44,9 @@ class Controller
      * @see drupal_deliver_page
      * @see drupal_deliver_html_page
      */
-    public function responseAction($_router_item)
+    public function responseAction($router_item)
     {
-        $page_callback_result = $this->deliverAction($_router_item);
+        $page_callback_result = $this->deliverAction($router_item);
 
         // Menu status constants are integers; page content is a string or array.
         if (is_int($page_callback_result)) {
