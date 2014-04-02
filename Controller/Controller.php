@@ -56,17 +56,14 @@ class Controller
                 case MENU_NOT_FOUND:
                     // Print a 404 page.
                     throw new NotFoundHttpException;
-                    break;
 
                 case MENU_ACCESS_DENIED:
                     // Print a 403 page.
                     throw new AccessDeniedHttpException;
-                    break;
 
                 case MENU_SITE_OFFLINE:
                     // Print a 503 page.
                     throw new ServiceUnavailableHttpException;
-                    break;
             }
         } elseif (isset($page_callback_result)) {
             // Print anything besides a menu constant, assuming it's not NULL or
