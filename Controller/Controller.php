@@ -46,6 +46,7 @@ class Controller
      */
     public function responseAction($router_item)
     {
+        menu_set_active_item($router_item['path']);
         $page_callback_result = $this->deliverAction($router_item);
 
         // Menu status constants are integers; page content is a string or array.
