@@ -7,7 +7,11 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * @Route(service="bangpound_drupal.controller")
+ */
 class Controller
 {
     /**
@@ -20,6 +24,7 @@ class Controller
      * @return int|mixed
      * @see menu_execute_active_handler()
      *
+     * @Route("/{q}", requirements={"q" = "\.+"})
      * @ParamConverter("router_item", converter="drupal.router_item")
      */
     public function deliverAction($router_item)

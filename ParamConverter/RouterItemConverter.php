@@ -15,7 +15,7 @@ class RouterItemConverter implements ParamConverterInterface
 {
 
     /**
-     * Stores the object in the request.
+     * Reads the 'q' attribute of the request and returns a menu item array..
      *
      * @param Request        $request       The request
      * @param ParamConverter $configuration Contains the name, class and options of the object
@@ -25,8 +25,6 @@ class RouterItemConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
-        $param = $configuration->getName();
-
         if (!$request->attributes->has('q')) {
             return false;
         }
@@ -43,6 +41,7 @@ class RouterItemConverter implements ParamConverterInterface
             throw new NotFoundHttpException('Entity not found.');
         }
 
+        $param = $configuration->getName();
         $request->attributes->set($param, $router_item);
 
         return true;
