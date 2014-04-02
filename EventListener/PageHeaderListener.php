@@ -46,7 +46,7 @@ class PageHeaderListener implements EventSubscriberInterface
     public function sendResponseHeaders(BootstrapEvent $event)
     {
         if (!drupal_is_cli()) {
-            // ob_start();
+            ob_start();
             drupal_page_header();
         }
     }
