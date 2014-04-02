@@ -23,6 +23,7 @@ class PageHeaderListener implements EventSubscriberInterface
                 array('onBootstrapPageHeader'),
             ),
             BootstrapEvents::FILTER_PAGE_HEADER => array(
+                array('startOutputBuffering'),
                 array('sendResponseHeaders'),
             ),
         );
@@ -43,10 +44,16 @@ class PageHeaderListener implements EventSubscriberInterface
         );
     }
 
-    public function sendResponseHeaders(BootstrapEvent $event)
+    public function startOutputBuffering(BootstrapEvent $event)
     {
         if (!drupal_is_cli()) {
             ob_start();
+        }
+    }
+
+    public function sendResponseHeaders(BootstrapEvent $event)
+    {
+        if (!drupal_is_cli()) {
             drupal_page_header();
         }
     }
