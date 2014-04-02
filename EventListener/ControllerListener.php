@@ -42,6 +42,7 @@ class ControllerListener implements EventSubscriberInterface
             $q = $request->get('q');
             $router_item = menu_get_item($q);
             $request->attributes->set('router_item', $router_item);
+            $request->attributes->set('_route', $router_item['path']);
         }
     }
 
@@ -68,7 +69,7 @@ class ControllerListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            KernelEvents::CONTROLLER => array('onKernelController'),
+            KernelEvents::CONTROLLER => array('onKernelController', 8),
             KernelEvents::VIEW => array('onKernelView', 8),
         );
     }
