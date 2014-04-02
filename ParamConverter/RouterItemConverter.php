@@ -20,8 +20,8 @@ class RouterItemConverter implements ParamConverterInterface
      * @param Request        $request       The request
      * @param ParamConverter $configuration Contains the name, class and options of the object
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @return boolean                                                       True if the object has been successfully set, else false
+     * @throws NotFoundHttpException
+     * @return boolean               True if the object has been successfully set, else false
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -39,7 +39,7 @@ class RouterItemConverter implements ParamConverterInterface
 
         $router_item = menu_get_item($value);
 
-        if ($router_item) {
+        if (!$router_item) {
             throw new NotFoundHttpException('Entity not found.');
         }
 
