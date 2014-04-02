@@ -22,7 +22,6 @@
     "autoload": {
         "psr-4": { "Bangpound\\Bridge\\Drupal\\": "" }
     },
-    "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
