@@ -31,7 +31,7 @@ class ViewListener
     {
         $request = $event->getRequest();
         $page_callback_result = $event->getControllerResult();
-        if ((is_string($page_callback_result) || is_array($page_callback_result)) && $this->matcher->matches($request)) {
+        if ((is_string($page_callback_result) || is_array($page_callback_result) || is_int($page_callback_result)) && $this->matcher->matches($request)) {
             $router_item = $request->attributes->get('_router_item', array());
             $default_delivery_callback = (isset($router_item) && $router_item) ? $router_item['delivery_callback'] : NULL;
 
