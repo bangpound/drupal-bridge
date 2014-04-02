@@ -4,7 +4,6 @@ namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -25,25 +24,6 @@ class ControllerListener implements EventSubscriberInterface
     public function __construct(RequestMatcherInterface $matcher)
     {
         $this->matcher = $matcher;
-    }
-
-    /**
-     * This method is based on menu_execute_active_handler() which is called
-     * in Drupal 7's front controller (index.php).
-     *
-     * @param FilterControllerEvent $event
-     *
-     * @see menu_execute_active_handler() for analogous function.
-     */
-    public function onKernelController(FilterControllerEvent $event)
-    {
-        $request = $event->getRequest();
-        if ($this->matcher->matches($request)) {
-            $q = $request->get('q');
-            $router_item = menu_get_item($q);
-            $request->attributes->set('router_item', $router_item);
-            $request->attributes->set('_route', $router_item['path']);
-        }
     }
 
     /**
@@ -69,7 +49,6 @@ class ControllerListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            KernelEvents::CONTROLLER => array('onKernelController'),
             KernelEvents::VIEW => array('onKernelView'),
         );
     }

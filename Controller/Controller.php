@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class Controller
 {
@@ -18,6 +19,8 @@ class Controller
      * @param $router_item
      * @return int|mixed
      * @see menu_execute_active_handler()
+     *
+     * @ParamConverter("router_item", converter="drupal.router_item")
      */
     public function deliverAction($router_item)
     {
@@ -43,6 +46,8 @@ class Controller
      * @return Response
      * @see drupal_deliver_page
      * @see drupal_deliver_html_page
+     *
+     * @ParamConverter("router_item", converter="drupal.router_item")
      */
     public function responseAction($router_item)
     {
