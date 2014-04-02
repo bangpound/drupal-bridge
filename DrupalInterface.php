@@ -36,4 +36,6 @@ interface DrupalInterface
      * @return object The service
      */
     public static function get($id);
+
+    public static function getResponse();
 }
