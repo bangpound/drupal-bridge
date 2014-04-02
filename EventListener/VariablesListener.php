@@ -36,7 +36,6 @@ class VariablesListener implements EventSubscriberInterface
      */
     public function onBootstrapVariables(BootstrapEvent $event)
     {
-        ladybug_dump($this->conf);
         foreach ($this->conf as $key => $value) {
             $GLOBALS['conf'][$key] = $value;
         }
