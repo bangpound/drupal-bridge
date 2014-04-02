@@ -235,9 +235,6 @@ class SwiftMailSystem implements \MailSystemInterface
                     continue;
                 }
 
-                // Keep track of the 'cid' assigned to the embedded image.
-                $cid = NULL;
-
                 // Get image data.
                 if (valid_url($image->uri, TRUE)) {
                     $content = file_get_contents($image->uri);
