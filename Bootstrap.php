@@ -57,12 +57,4 @@ class Bootstrap extends AbstractBootstrap
     {
         return $this->dispatcher;
     }
-
-    /**
-     * @return array
-     */
-    protected function getPhases()
-    {
-        return range(0,7);
-    }
 }
