@@ -128,29 +128,31 @@ function bangpound_drupal_http_request($url, array $options = array())
         return $result;
     }
 
-    // Parse response headers from the response body.
-    // Be tolerant of malformed HTTP responses that separate header and body with
-    // \n\n or \r\r instead of \r\n\r\n.
-    $result->data = $response->getBody(true);
+    if (isset($response)) {
+        // Parse response headers from the response body.
+        // Be tolerant of malformed HTTP responses that separate header and body with
+        // \n\n or \r\r instead of \r\n\r\n.
+        $result->data = $response->getBody(true);
 
-    // Parse the response status line.
-    $result->protocol = $response->getProtocol() .'/'. $response->getProtocolVersion();
-    $result->status_message = $response->getReasonPhrase();
-    $result->headers = array_map(function ($input) { return (string) $input; }, $response->getHeaders()->getAll());
-    $result->code = $response->getStatusCode();
+        // Parse the response status line.
+        $result->protocol = $response->getProtocol() .'/'. $response->getProtocolVersion();
+        $result->status_message = $response->getReasonPhrase();
+        $result->headers = array_map(function ($input) { return (string) $input; }, $response->getHeaders()->getAll());
+        $result->code = $response->getStatusCode();
 
-    switch ($result->code) {
-        case 200: // OK
-        case 304: // Not modified
-            break;
-        case 301: // Moved permanently
-        case 302: // Moved temporarily
-        case 307: // Moved temporarily
-            // $result->redirect_code = $code;
-            // $result->redirect_url = $location;
-            break;
-        default:
-            $result->error = $response->getReasonPhrase();
+        switch ($result->code) {
+            case 200: // OK
+            case 304: // Not modified
+                break;
+            case 301: // Moved permanently
+            case 302: // Moved temporarily
+            case 307: // Moved temporarily
+                // $result->redirect_code = $code;
+                // $result->redirect_url = $location;
+                break;
+            default:
+                $result->error = $response->getReasonPhrase();
+        }
     }
 
     return $result;
