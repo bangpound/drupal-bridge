@@ -3,6 +3,7 @@
 namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Bangpound\Bridge\Drupal\BootstrapEvents;
+use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
 use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -42,7 +43,7 @@ class PageHeaderListener implements EventSubscriberInterface
         );
     }
 
-    public function sendResponseHeaders(BootstrapEvents $event)
+    public function sendResponseHeaders(BootstrapEvent $event)
     {
         if (!drupal_is_cli()) {
             // ob_start();
