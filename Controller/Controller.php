@@ -27,7 +27,7 @@ class Controller
      * @Route("/{q}", requirements={"q" = "\.+"})
      * @ParamConverter("router_item", converter="drupal.router_item")
      */
-    public function deliverAction($router_item)
+    public function executeAction($router_item)
     {
         if ($router_item['access']) {
             if ($router_item['include_file']) {
@@ -54,7 +54,7 @@ class Controller
      *
      * @ParamConverter("router_item", converter="drupal.router_item")
      */
-    public function responseAction($router_item)
+    public function respondAction($router_item)
     {
         menu_set_active_item($router_item['path']);
         $page_callback_result = $this->deliverAction($router_item);
@@ -77,9 +77,46 @@ class Controller
         } elseif (isset($page_callback_result)) {
             // Print anything besides a menu constant, assuming it's not NULL or
             // undefined.
-            $content = is_array($page_callback_result) ? drupal_render($page_callback_result) : $page_callback_result;
+            return $page_callback_result;
+        }
+    }
 
-            return new Response($content, http_response_code());
+    /**
+     * @param $router_item
+     * @return Response
+     * @throws \Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+     * @see drupal_deliver_page
+     * @ParamConverter("router_item", converter="drupal.router_item")
+     */
+    public function deliverAction($router_item)
+    {
+        $page_callback_result = $this->executeAction($router_item);
+        $default_delivery_callback = NULL;
+
+        if (!isset($default_delivery_callback)) {
+            $default_delivery_callback = $router_item['delivery_callback'];
+        }
+        $delivery_callback = !empty($default_delivery_callback) ? $default_delivery_callback : 'drupal_deliver_html_page';
+        // Give modules a chance to alter the delivery callback used, based on
+        // request-time context (e.g., HTTP request headers).
+        drupal_alter('page_delivery_callback', $delivery_callback);
+
+        if (function_exists($delivery_callback)) {
+            $delivery_callback = function ($page_callback_result) use ($delivery_callback) {
+                $response = \Drufony::getResponse();
+                ob_start();
+                $delivery_callback($page_callback_result);
+                $response->setContent((string) ob_get_clean());
+                return $response;
+            };
+            return $delivery_callback($page_callback_result);
+        } else {
+            // If a delivery callback is specified, but doesn't exist as a function,
+            // something is wrong, but don't print anything, since it's not known
+            // what format the response needs to be in.
+            watchdog('delivery callback not found', 'callback %callback not found: %q.', array('%callback' => $delivery_callback, '%q' => $_GET['q']), WATCHDOG_ERROR);
         }
     }
 }
