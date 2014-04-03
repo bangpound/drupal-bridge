@@ -12,7 +12,7 @@ class WatchdogHandler extends AbstractProcessingHandler
     public function __construct($level = Logger::DEBUG, $bubble = true)
     {
         parent::__construct($level, $bubble);
-        $this->levels = [
+        $this->levels = array(
             Logger::ALERT => WATCHDOG_ALERT,
             Logger::CRITICAL => WATCHDOG_CRITICAL,
             Logger::DEBUG => WATCHDOG_DEBUG,
@@ -21,7 +21,7 @@ class WatchdogHandler extends AbstractProcessingHandler
             Logger::INFO => WATCHDOG_INFO,
             Logger::NOTICE => WATCHDOG_NOTICE,
             Logger::WARNING => WATCHDOG_WARNING,
-        ];
+        );
     }
 
     /**
