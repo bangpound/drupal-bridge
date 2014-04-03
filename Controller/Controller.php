@@ -109,8 +109,10 @@ class Controller
                 ob_start();
                 $delivery_callback($page_callback_result);
                 $response->setContent((string) ob_get_clean());
+
                 return $response;
             };
+
             return $delivery_callback($page_callback_result);
         } else {
             // If a delivery callback is specified, but doesn't exist as a function,
