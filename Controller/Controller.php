@@ -24,7 +24,7 @@ class Controller
      * @return int|mixed
      * @see menu_execute_active_handler()
      *
-     * @Route("/{q}", requirements={"q" = "\.+"})
+     * @Route(requirements={"q" = "\.+"}, defaults={"_legacy" = "drupal"})
      * @ParamConverter("router_item", converter="drupal.router_item")
      */
     public function executeAction($router_item)
@@ -52,6 +52,7 @@ class Controller
      * @see drupal_deliver_page
      * @see drupal_deliver_html_page
      *
+     * @Route(requirements={"q" = "\.+"}, defaults={"_legacy" = "drupal"})
      * @ParamConverter("router_item", converter="drupal.router_item")
      */
     public function respondAction($router_item)
@@ -77,7 +78,8 @@ class Controller
         } elseif (isset($page_callback_result)) {
             // Print anything besides a menu constant, assuming it's not NULL or
             // undefined.
-            return $page_callback_result;
+            $content = drupal_render($page_callback_result);
+            return new Response($content);
         }
     }
 
@@ -88,6 +90,7 @@ class Controller
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      * @see drupal_deliver_page
+     * @Route(requirements={"q" = "\.+"}, defaults={"_legacy" = "drupal"})
      * @ParamConverter("router_item", converter="drupal.router_item")
      */
     public function deliverAction($router_item)
