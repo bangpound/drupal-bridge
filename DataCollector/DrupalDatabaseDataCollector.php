@@ -2,6 +2,7 @@
 
 namespace Bangpound\Bridge\Drupal\DataCollector;
 
+use Drupal\Core\BootstrapInterface;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,13 +13,18 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class DrupalDatabaseDataCollector extends DataCollector
 {
-    private $loggers;
 
-    public function __construct()
+    /**
+     *
+     */
+    public function __construct(BootstrapInterface $object)
     {
+
         @include_once DRUPAL_ROOT . '/includes/database/log.inc';
-        foreach (array_keys($GLOBALS['databases']) as $key) {
-            \Database::startLog('devel', $key);
+        if (isset($GLOBALS['databases']) && is_array($GLOBALS['databases'])) {
+            foreach (array_keys($GLOBALS['databases']) as $key) {
+                \Database::startLog('devel', $key);
+            }
         }
     }
 
@@ -30,21 +36,32 @@ class DrupalDatabaseDataCollector extends DataCollector
         $this->data = array(
             'queries' => array(),
         );
-        foreach (array_keys($GLOBALS['databases']) as $key) {
-            $this->data['queries'][$key] = \Database::getLog('devel', $key);
+        if (isset($GLOBALS['databases']) && is_array($GLOBALS['databases'])) {
+            foreach (array_keys($GLOBALS['databases']) as $key) {
+                $this->data['queries'][$key] = \Database::getLog('devel', $key);
+            }
         }
     }
 
+    /**
+     * @return number
+     */
     public function getQueryCount()
     {
         return array_sum(array_map('count', $this->data['queries']));
     }
 
+    /**
+     * @return mixed
+     */
     public function getQueries()
     {
         return $this->data['queries'];
     }
 
+    /**
+     * @return int
+     */
     public function getTime()
     {
         $time = 0;
