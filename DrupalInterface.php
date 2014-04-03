@@ -23,4 +23,8 @@ interface DrupalInterface
     public static function get($id);
 
     public static function getResponse();
+
+    public static function getSession();
+
+    public static function getEventDispatcher();
 }
