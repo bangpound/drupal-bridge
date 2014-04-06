@@ -3,9 +3,9 @@
 namespace Bangpound\Bridge\Drupal\DataCollector;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
-use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 
 /**
  * Class DrupalCollector
@@ -13,29 +13,54 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
  */
 class DrupalCollector extends DataCollector
 {
+    /**
+     * @var RequestMatcherInterface
+     */
+    private $matcher;
+
+    /**
+     * @param RequestMatcherInterface $matcher
+     */
+    public function __construct(RequestMatcherInterface $matcher)
+    {
+        $this->matcher = $matcher;
+    }
 
     /**
      * Collects data for the given Request and Response.
      *
-     * @param Request $request A Request instance
-     * @param Response $response A Response instance
+     * @param Request    $request   A Request instance
+     * @param Response   $response  A Response instance
      * @param \Exception $exception An Exception instance
      *
      * @api
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
-        $this->data = array(
-            'bootstrap' => function_exists('drupal_get_bootstrap_phase') ? drupal_get_bootstrap_phase() : -1,
-            'base_url' => $GLOBALS['base_url'],
-            'conf' => $GLOBALS['conf'],
-            'base_path' => $GLOBALS['base_path'],
-            'conf_path' => conf_path(),
-        );
+        if ($this->matcher->matches($request)) {
+            $this->data = array(
+                'bootstrap' => function_exists('drupal_get_bootstrap_phase') ? drupal_get_bootstrap_phase() : -1,
+                'base_url' => $GLOBALS['base_url'],
+                'base_path' => $GLOBALS['base_path'],
+                'base_root' => $GLOBALS['base_root'],
+                'conf_path' => conf_path(),
+            );
 
-        $filter_keys = array('conf', '_ENV', '_GET', '_SERVER', 'GLOBALS', '_POST', '_REQUEST', '_SESSION', '_COOKIE', '_FILES');
-        $this->data['globals'] = array_map(array($this, 'varToString'), array_diff_key($GLOBALS, array_combine($filter_keys, $filter_keys)));
-        $this->data['conf'] = array_map(array($this, 'varToString'), $GLOBALS['conf']);
+            // Load .install files
+            include_once DRUPAL_ROOT . '/includes/install.inc';
+            drupal_load_updates();
+
+            // Check run-time requirements and status information.
+            $requirements = module_invoke_all('requirements', 'runtime');
+            usort($requirements, '_system_sort_requirements');
+
+            $this->data['requirements'] = $requirements;
+            $this->data['severity'] = drupal_requirements_severity($requirements);
+            $this->data['status_report'] = theme('status_report', array('requirements' => $requirements));
+        }
+        else {
+            $this->data = false;
+        }
     }
 
     public function getBootstrapPhase()
@@ -58,6 +83,11 @@ class DrupalCollector extends DataCollector
         return $this->data['base_path'];
     }
 
+    public function getBaseRoot()
+    {
+        return $this->data['base_root'];
+    }
+
     public function getConfPath()
     {
         return $this->data['conf_path'];
@@ -66,6 +96,26 @@ class DrupalCollector extends DataCollector
     public function getGlobals()
     {
         return $this->data['globals'];
+    }
+
+    public function getRequirements()
+    {
+        return $this->data['requirements'];
+    }
+
+    public function getSeverity()
+    {
+        return $this->data['severity'];
+    }
+
+    public function getStatusReport()
+    {
+        return $this->data['status_report'];
+    }
+
+    public function isDrupal()
+    {
+        return is_array($this->data);
     }
 
     /**
