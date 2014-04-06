@@ -79,6 +79,7 @@ class Controller
             // Print anything besides a menu constant, assuming it's not NULL or
             // undefined.
             $content = drupal_render($page_callback_result);
+
             return new Response($content);
         }
     }
