@@ -101,11 +101,6 @@ class DrupalCollector extends DataCollector implements EventSubscriberInterface
         return $this->data['conf_path'];
     }
 
-    public function getGlobals()
-    {
-        return $this->data['globals'];
-    }
-
     public function getRequirements()
     {
         return $this->data['requirements'];
