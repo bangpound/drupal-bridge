@@ -109,12 +109,10 @@ class Controller
 
         if (function_exists($delivery_callback)) {
             $delivery_callback = function ($page_callback_result) use ($delivery_callback) {
-                $response = \Drufony::getResponse();
                 ob_start();
                 $delivery_callback($page_callback_result);
-                $response->setContent((string) ob_get_clean());
 
-                return $response;
+                return new Response((string) ob_get_clean());
             };
 
             return $delivery_callback($page_callback_result);
