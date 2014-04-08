@@ -17,12 +17,12 @@ class ScriptHandler
     public static function installDrupal(CommandEvent $event)
     {
         $options = self::getOptions($event);
-        $webDir = $options['symfony-web-dir'];
+        $target = $options['drupal-root'];
         $composer = $event->getComposer();
         $filesystem = new Filesystem();
 
         $packages = $composer->getPackage()->getRequires();
-        $drupal_root = $composer->getConfig()->get('vendor-dir') . DIRECTORY_SEPARATOR .
+        $origin = $composer->getConfig()->get('vendor-dir') . DIRECTORY_SEPARATOR .
             $packages['drupal/drupal']->getTarget();
 
         $directories = array(
@@ -33,19 +33,19 @@ class ScriptHandler
         );
 
         foreach ($directories as $directory) {
-            $originDir = '../'. $drupal_root .'/'. $directory;
-            $targetDir = $webDir.'/'.$directory;
+            $originDir = $origin .'/'. $directory;
+            $targetDir = $target .'/'. $directory;
             $event->getIO()->write(sprintf('Creating symlink for Drupal\'s \'%s\' directory', $directory));
             $filesystem->symlink($originDir, $targetDir);
         }
 
         $directory = 'sites';
-        $targetDir = $webDir.'/'.$directory .'/';
+        $targetDir = $target.'/'.$directory .'/';
 
         // Check for sites/default because sites/all may exist if composer installs
         // modules or themes.
         if (!$filesystem->exists($targetDir .'/default')) {
-            $originDir = $drupal_root .'/'. $directory;
+            $originDir = $origin .'/'. $directory;
             $event->getIO()->write(sprintf('Creating new sites directory', $directory));
             $filesystem->mirror($originDir, $targetDir, null, array('override' => true));
         }
@@ -55,14 +55,13 @@ class ScriptHandler
     {
         $options = array_merge(
             array(
-                'symfony-web-dir' => 'web',
-                'symfony-drupal-install' => 'relative',
+                'drupal-install' => 'relative',
                 'drupal-root' => '',
             ),
             $event->getComposer()->getPackage()->getExtra()
         );
 
-        $options['symfony-drupal-install'] = getenv('SYMFONY_DRUPAL_INSTALL') ?: $options['symfony-drupal-install'];
+        $options['drupal-install'] = getenv('COMPOSER_DRUPAL_INSTALL') ?: $options['drupal-install'];
 
         return $options;
     }
