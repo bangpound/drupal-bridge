@@ -58,7 +58,7 @@ class Controller
     public function respondAction($router_item)
     {
         menu_set_active_item($router_item['path']);
-        $page_callback_result = $this->deliverAction($router_item);
+        $page_callback_result = $this->executeAction($router_item);
 
         // Menu status constants are integers; page content is a string or array.
         if (is_int($page_callback_result)) {
@@ -85,6 +85,8 @@ class Controller
     }
 
     /**
+     * Controller returns an entire Drupal page as a Symfony response.
+     *
      * @param $router_item
      * @return Response
      * @throws \Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException
@@ -96,6 +98,7 @@ class Controller
      */
     public function deliverAction($router_item)
     {
+        menu_set_active_item($router_item['path']);
         $page_callback_result = $this->executeAction($router_item);
         $default_delivery_callback = NULL;
 
