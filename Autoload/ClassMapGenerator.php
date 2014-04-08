@@ -1,26 +1,29 @@
 <?php
+
 namespace Bangpound\Bridge\Drupal\Autoload;
 
-use Composer\Autoload\ClassMapGenerator as BaseGenerator;
-use Composer\IO\IOInterface;
 use Symfony\Component\Finder\Finder;
+use Composer\IO\IOInterface;
 
 /**
  * Class ClassMapGenerator
  * @package Bangpound\Bridge\Drupal\Autoload
+ * @see Composer\Autoload\ClassMapGenerator
  */
-class ClassMapGenerator extends BaseGenerator
+class ClassMapGenerator
 {
     /**
      * File extensions to scan for PHP classes, intefaces and traits.
      *
      * @var array
      */
-    private static $extensions = array('php', 'inc', 'module', 'theme', 'profile');
+    private static $extensions = array('php', 'inc', 'hh', 'module', 'theme', 'profile');
 
     /**
-     * {@inheritdoc}
-     * @param string $file
+     * Generate a class map file
+     *
+     * @param \Traversable $dirs Directories or a single path to search in
+     * @param string       $file The name of the class map file
      */
     public static function dump($dirs, $file)
     {
@@ -38,7 +41,15 @@ class ClassMapGenerator extends BaseGenerator
     }
 
     /**
-     * {@inheritdoc}
+     * Iterate over all files in the given directory searching for classes
+     *
+     * @param \Iterator|string $path      The path to search in or an iterator
+     * @param string           $whitelist Regex that matches against the file path
+     *
+     * @param  \Composer\IO\IOInterface $io
+     * @throws \RuntimeException        When the path is neither an existing file nor directory
+     * @return array                    A class map array
+     *
      */
     public static function createMap($path, $whitelist = null, IOInterface $io = null)
     {
@@ -72,7 +83,14 @@ class ClassMapGenerator extends BaseGenerator
             $classes = self::findClasses($filePath);
 
             foreach ($classes as $class) {
-                $map[$class] = $filePath;
+                if (!isset($map[$class])) {
+                    $map[$class] = $filePath;
+                } elseif ($io && $map[$class] !== $filePath && !preg_match('{/(test|fixture)s?/}i', strtr($map[$class].' '.$filePath, '\\', '/'))) {
+                    $io->write(
+                        '<warning>Warning: Ambiguous class resolution, "'.$class.'"'.
+                        ' was found in both "'.$map[$class].'" and "'.$filePath.'", the first will be used.</warning>'
+                    );
+                }
             }
         }
 
@@ -80,7 +98,11 @@ class ClassMapGenerator extends BaseGenerator
     }
 
     /**
-     * {@inheritdoc}
+     * Extract the classes in the given file
+     *
+     * @param  string            $path The file to check
+     * @throws \RuntimeException
+     * @return array             The found classes
      */
     private static function findClasses($path)
     {
