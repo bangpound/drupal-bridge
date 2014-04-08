@@ -44,6 +44,7 @@ class Controller
     /**
      * Controller returns the page callback result as a Symfony response.
      *
+     * @param $q
      * @param $router_item
      * @throws \Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -55,7 +56,7 @@ class Controller
      * @Route(requirements={"q" = "\.+"}, defaults={"_legacy" = "drupal"})
      * @ParamConverter("router_item", converter="drupal.router_item")
      */
-    public function respondAction($router_item)
+    public function respondAction($q, $router_item)
     {
         menu_set_active_item($q);
         $page_callback_result = $this->executeAction($router_item);
@@ -87,11 +88,9 @@ class Controller
     /**
      * Controller returns an entire Drupal page as a Symfony response.
      *
+     * @param $q
      * @param $router_item
      * @return Response
-     * @throws \Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      * @see drupal_deliver_page
      * @Route(requirements={"q" = "\.+"}, defaults={"_legacy" = "drupal"})
      * @ParamConverter("router_item", converter="drupal.router_item")
