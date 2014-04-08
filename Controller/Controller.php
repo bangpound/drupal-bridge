@@ -57,7 +57,7 @@ class Controller
      */
     public function respondAction($router_item)
     {
-        menu_set_active_item($router_item['path']);
+        menu_set_active_item($q);
         $page_callback_result = $this->executeAction($router_item);
 
         // Menu status constants are integers; page content is a string or array.
@@ -96,9 +96,9 @@ class Controller
      * @Route(requirements={"q" = "\.+"}, defaults={"_legacy" = "drupal"})
      * @ParamConverter("router_item", converter="drupal.router_item")
      */
-    public function deliverAction($router_item)
+    public function deliverAction($q, $router_item)
     {
-        menu_set_active_item($router_item['path']);
+        menu_set_active_item($q);
         $page_callback_result = $this->executeAction($router_item);
         $default_delivery_callback = NULL;
 
