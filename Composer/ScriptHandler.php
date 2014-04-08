@@ -35,7 +35,7 @@ class ScriptHandler
         foreach ($directories as $directory) {
             $originDir = '../'. $drupal_root .'/'. $directory;
             $targetDir = $webDir.'/'.$directory;
-            echo sprintf('Creating symlink for Drupal\'s \'%s\' directory', $directory) . PHP_EOL;
+            $event->getIO()->write(sprintf('Creating symlink for Drupal\'s \'%s\' directory', $directory));
             $filesystem->symlink($originDir, $targetDir);
         }
 
@@ -46,7 +46,7 @@ class ScriptHandler
         // modules or themes.
         if (!$filesystem->exists($targetDir .'/default')) {
             $originDir = $drupal_root .'/'. $directory;
-            echo sprintf('Creating new sites directory', $directory) . PHP_EOL;
+            $event->getIO()->write(sprintf('Creating new sites directory', $directory));
             $filesystem->mirror($originDir, $targetDir, null, array('override' => true));
         }
     }
