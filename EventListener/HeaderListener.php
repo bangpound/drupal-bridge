@@ -2,7 +2,6 @@
 namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -49,7 +48,7 @@ class HeaderListener implements EventSubscriberInterface
         }
     }
 
-    public function sendResponseHeaders(BootstrapEvent $event)
+    public function sendResponseHeaders()
     {
         $default_headers = array(
             'Expires' => 'Sun, 19 Nov 1978 05:00:00 GMT',

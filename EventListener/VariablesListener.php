@@ -3,7 +3,6 @@
 namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -31,10 +30,7 @@ class VariablesListener implements EventSubscriberInterface
         );
     }
 
-    /**
-     * @param BootstrapEvent $event
-     */
-    public function onBootstrapVariables(BootstrapEvent $event)
+    public function onBootstrapVariables()
     {
         foreach ($this->conf as $key => $value) {
             $GLOBALS['conf'][$key] = $value;

@@ -49,20 +49,14 @@ class ConfigurationListener implements EventSubscriberInterface
         );
     }
 
-    /**
-     * @param BootstrapEvent $event
-     */
-    public function setErrorHandling(BootstrapEvent $event)
+    public function setErrorHandling()
     {
         // Set the Drupal custom error handler.
         set_error_handler('_drupal_error_handler');
         set_exception_handler('_drupal_exception_handler');
     }
 
-    /**
-     * @param BootstrapEvent $event
-     */
-    public function initializeEnvironment(BootstrapEvent $event)
+    public function initializeEnvironment()
     {
         if (!isset($_SERVER['HTTP_REFERER'])) {
             $_SERVER['HTTP_REFERER'] = '';

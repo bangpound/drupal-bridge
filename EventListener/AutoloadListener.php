@@ -3,7 +3,6 @@
 namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
 use Symfony\Component\ClassLoader\MapClassLoader;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -23,7 +22,7 @@ class AutoloadListener implements EventSubscriberInterface
      * Listener disables the Drupal registry and replaces it with
      * a set of class maps.
      */
-    public function onBootstrapDatabase(BootstrapEvent $event)
+    public function onBootstrapDatabase()
     {
         spl_autoload_unregister('drupal_autoload_class');
         spl_autoload_unregister('drupal_autoload_interface');

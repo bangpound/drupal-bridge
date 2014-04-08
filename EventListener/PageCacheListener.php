@@ -3,7 +3,6 @@
 namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
 use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -60,12 +59,12 @@ class PageCacheListener implements EventSubscriberInterface
         return $cache_enabled;
     }
 
-    public function denyBlockedIpAddress(BootstrapEvent $event)
+    public function denyBlockedIpAddress()
     {
         drupal_block_denied(ip_address());
     }
 
-    public function serveCachedPage(BootstrapEvent $event)
+    public function serveCachedPage()
     {
         $cache_enabled = $this->getCacheMode();
 

@@ -3,7 +3,6 @@
 namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
 use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -36,7 +35,7 @@ class DatabaseListener implements EventSubscriberInterface
         );
     }
 
-    public function redirectToInstall(BootstrapEvent $event)
+    public function redirectToInstall()
     {
         // Redirect the user to the installation script if Drupal has not been
         // installed yet (i.e., if no $databases array has been defined in the
@@ -47,7 +46,7 @@ class DatabaseListener implements EventSubscriberInterface
         }
     }
 
-    public function testSettings(BootstrapEvent $event)
+    public function testSettings()
     {
         // The user agent header is used to pass a database prefix in the request when
         // running tests. However, for security reasons, it is imperative that we
@@ -76,14 +75,14 @@ class DatabaseListener implements EventSubscriberInterface
         }
     }
 
-    public function initializeDatabaseSystem(BootstrapEvent $event)
+    public function initializeDatabaseSystem()
     {
         // Initialize the database system. Note that the connection
         // won't be initialized until it is actually requested.
         require_once DRUPAL_ROOT . '/includes/database/database.inc';
     }
 
-    public function registerAutoloadFunctions(BootstrapEvent $event)
+    public function registerAutoloadFunctions()
     {
         // Register autoload functions so that we can access classes and interfaces.
         // The database autoload routine comes first so that we can load the database
