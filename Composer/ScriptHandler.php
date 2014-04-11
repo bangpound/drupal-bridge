@@ -75,7 +75,7 @@ class ScriptHandler
      * @var array
      */
     protected static $root_paths = array(
-        'includes', 'misc', 'modules', 'scripts', 'themes',
+        'misc', 'modules', 'scripts', 'themes',
 
         // None of these files actually contain PHP classes, but the are
         // scanned anyway.
