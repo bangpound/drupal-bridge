@@ -7,6 +7,10 @@ use Composer\Script\CommandEvent;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
+/**
+ * Class ScriptHandler
+ * @package Bangpound\Bridge\Drupal\Composer
+ */
 class ScriptHandler
 {
     /**
@@ -17,37 +21,49 @@ class ScriptHandler
     public static function installDrupal(CommandEvent $event)
     {
         $options = self::getOptions($event);
-        $target = $options['drupal-root'];
         $composer = $event->getComposer();
         $filesystem = new Filesystem();
 
-        $packages = $composer->getPackage()->getRequires();
-        $origin = $composer->getConfig()->get('vendor-dir') . DIRECTORY_SEPARATOR .
-            $packages['drupal/drupal']->getTarget();
+        $originDir = realpath($composer->getConfig()->get('vendor-dir') . '/drupal/drupal');
+        $targetDir = realpath($options['drupal-root']);
 
-        $directories = array(
-            'includes',
-            'misc',
-            'modules',
-            'themes',
-        );
+        if (is_dir($originDir)) {
 
-        foreach ($directories as $directory) {
-            $originDir = $origin .'/'. $directory;
-            $targetDir = $target .'/'. $directory;
-            $event->getIO()->write(sprintf('Creating symlink for Drupal\'s \'%s\' directory', $directory));
-            $filesystem->symlink($originDir, $targetDir);
-        }
+            if ($options['drupal-install']['symlink']) {
+                if ($options['drupal-install']['relative']) {
+                    $relativeOriginDir = rtrim($filesystem->makePathRelative($originDir, $targetDir), '/');
+                } else {
+                    $relativeOriginDir = $originDir;
+                }
+            }
 
-        $directory = 'sites';
-        $targetDir = $target.'/'.$directory .'/';
+            $directories = array(
+                'includes',
+                'misc',
+                'modules',
+                'themes',
+            );
 
-        // Check for sites/default because sites/all may exist if composer installs
-        // modules or themes.
-        if (!$filesystem->exists($targetDir .'/default')) {
-            $originDir = $origin .'/'. $directory;
-            $event->getIO()->write(sprintf('Creating new sites directory', $directory));
-            $filesystem->mirror($originDir, $targetDir, null, array('override' => true));
+            foreach ($directories as $directory) {
+                $filesystem->remove($targetDir .'/'. $directory);
+
+                if ($options['drupal-install']['symlink']) {
+                    $event->getIO()->write(sprintf('Creating symlink for Drupal\'s \'%s\' directory', $directory));
+                    $filesystem->symlink($relativeOriginDir .'/'. $directory, $targetDir .'/'. $directory);
+                } else {
+                    $event->getIO()->write(sprintf('Copying Drupal\'s \'%s\' directory to web root', $directory));
+                    $filesystem->mkdir($targetDir .'/'. $directory, 0777);
+                    // We use a custom iterator to ignore VCS files
+                    $filesystem->mirror($originDir .'/'. $directory, $targetDir .'/'. $directory, Finder::create()->ignoreDotFiles(false)->in($originDir));
+                }
+            }
+
+            // Check for sites/default because sites/all may exist if composer installs
+            // modules or themes.
+            if (!$filesystem->exists($targetDir .'/sites/default')) {
+                $event->getIO()->write(sprintf('Creating new sites directory'));
+                $filesystem->mirror($originDir .'/sites', $targetDir .'/sites', null, array('override' => true));
+            }
         }
     }
 
@@ -55,7 +71,10 @@ class ScriptHandler
     {
         $options = array_merge(
             array(
-                'drupal-install' => 'relative',
+                'drupal-install' => array(
+                    'symlink' => true,
+                    'relative' => true,
+                ),
                 'drupal-root' => '',
             ),
             $event->getComposer()->getPackage()->getExtra()
@@ -92,6 +111,9 @@ class ScriptHandler
         'modules', 'themes', 'plugins',
     );
 
+    /**
+     * @param CommandEvent $event
+     */
     public static function dumpAutoload(CommandEvent $event)
     {
         $cwd = getcwd();
