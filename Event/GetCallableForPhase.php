@@ -25,11 +25,11 @@ class GetCallableForPhase extends BootstrapEvent
     /**
      * Sets a callable and stops event propagation
      *
-     * @param callable $callable
+     * @param $callable
      *
      * @api
      */
-    public function setCallable(callable $callable)
+    public function setCallable($callable)
     {
         if (is_object($callable) && method_exists($callable, '__invoke')) {
             $this->callable = $callable;
