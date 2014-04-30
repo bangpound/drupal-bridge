@@ -9,6 +9,9 @@
         "drufony/drufony": "Drupal inside Symfony Standard Edition",
         "guzzle/guzzle": "Replace Drupal's HTTP function with Guzzle"
     },
+    "require": {
+        "symfony/filesystem": "~2.4"
+    },
     "require-dev": {
         "guzzle/guzzle": "~3.8"
     },
