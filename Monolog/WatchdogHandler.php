@@ -32,6 +32,6 @@ class WatchdogHandler extends AbstractProcessingHandler
      */
     protected function write(array $record)
     {
-        watchdog($record['channel'], $record['message'], $record['context'], $this->levels[$record['level']]);
+        watchdog($record['channel'], $record['formatted'], NULL, $this->levels[$record['level']]);
     }
 }
