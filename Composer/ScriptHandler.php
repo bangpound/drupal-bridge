@@ -37,11 +37,10 @@ class ScriptHandler
         $composer = $event->getComposer();
         $filesystem = new Filesystem();
 
-        $originDir = realpath($composer->getConfig()->get('vendor-dir') . '/drupal/drupal');
+        $originDir = realpath($composer->getConfig()->get('vendor-dir').'/drupal/drupal');
         $targetDir = realpath($options['drupal-root']);
 
         if (is_dir($originDir)) {
-
             if ($options['drupal-install']['relative']) {
                 $originDir = rtrim($filesystem->makePathRelative($originDir, $targetDir), '/');
             }
@@ -54,16 +53,16 @@ class ScriptHandler
             );
 
             foreach ($directories as $directory) {
-                $filesystem->remove($targetDir .'/'. $directory);
+                $filesystem->remove($targetDir.'/'.$directory);
 
                 if ($options['drupal-install']['symlink']) {
                     $event->getIO()->write(sprintf('Creating symlink for Drupal\'s \'%s\' directory', $directory));
-                    $filesystem->symlink($originDir .'/'. $directory, $targetDir .'/'. $directory);
+                    $filesystem->symlink($originDir.'/'.$directory, $targetDir.'/'.$directory);
                 } else {
                     $event->getIO()->write(sprintf('Copying Drupal\'s \'%s\' directory to web root', $directory));
-                    $filesystem->mkdir($targetDir .'/'. $directory, 0777);
+                    $filesystem->mkdir($targetDir.'/'.$directory, 0777);
                     // We use a custom iterator to ignore VCS files
-                    $filesystem->mirror($originDir .'/'. $directory, $targetDir .'/'. $directory, Finder::create()->ignoreDotFiles(false)->in($originDir));
+                    $filesystem->mirror($originDir.'/'.$directory, $targetDir.'/'.$directory, Finder::create()->ignoreDotFiles(false)->in($originDir));
                 }
             }
         }
@@ -84,14 +83,14 @@ class ScriptHandler
         $composer = $event->getComposer();
         $filesystem = new Filesystem();
 
-        $originDir = realpath($composer->getConfig()->get('vendor-dir') . '/drupal/drupal');
+        $originDir = realpath($composer->getConfig()->get('vendor-dir').'/drupal/drupal');
         $targetDir = realpath($options['drupal-root']);
 
         if (is_dir($originDir)) {
-            if (!$filesystem->exists($targetDir . '/sites')) {
+            if (!$filesystem->exists($targetDir.'/sites')) {
                 if ($event->getIO()->askConfirmation('Create a new sites directory? ', false)) {
                     $event->getIO()->write(sprintf('Creating new sites directory.'));
-                    $filesystem->mirror($originDir . '/sites', $targetDir . '/sites', null, array('override' => true));
+                    $filesystem->mirror($originDir.'/sites', $targetDir.'/sites', null, array('override' => true));
                 }
             } else {
                 $event->getIO()->write(sprintf('Sites directory already exists.'));
@@ -172,8 +171,8 @@ class ScriptHandler
 
         foreach ($finder as $file) {
             /** @var \Symfony\Component\Finder\SplFileInfo $file */
-            chdir($file->getPathInfo() .'/'. $file->getRelativePathname());
-            $io->write(sprintf('Dumping classmap for <info>%s</info>', $file->getPathInfo() .'/'. $file->getRelativePathname()));
+            chdir($file->getPathInfo().'/'.$file->getRelativePathname());
+            $io->write(sprintf('Dumping classmap for <info>%s</info>', $file->getPathInfo().'/'.$file->getRelativePathname()));
             $dirs = array_filter(self::$subdir_paths, 'file_exists');
             $generator->dump($dirs, 'classmap.php');
             chdir($cwd);

@@ -57,7 +57,7 @@ class ClassMapGenerator
             if (is_file($path)) {
                 $path = array(new \SplFileInfo($path));
             } elseif (is_dir($path)) {
-                $path = Finder::create()->files()->followLinks()->name('/\.('. implode('|', self::$extensions) .')$/')->in($path);
+                $path = Finder::create()->files()->followLinks()->name('/\.('.implode('|', self::$extensions).')$/')->in($path);
             } else {
                 throw new \RuntimeException(
                     'Could not scan for classes inside "'.$path.
@@ -147,9 +147,9 @@ class ClassMapGenerator
 
         for ($i = 0, $len = count($matches['type']); $i < $len; $i++) {
             if (!empty($matches['ns'][$i])) {
-                $namespace = str_replace(array(' ', "\t", "\r", "\n"), '', $matches['nsname'][$i]) . '\\';
+                $namespace = str_replace(array(' ', "\t", "\r", "\n"), '', $matches['nsname'][$i]).'\\';
             } else {
-                $classes[] = ltrim($namespace . $matches['name'][$i], '\\');
+                $classes[] = ltrim($namespace.$matches['name'][$i], '\\');
             }
         }
 

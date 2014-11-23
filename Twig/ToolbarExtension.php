@@ -1,6 +1,7 @@
 <?php
 
 namespace Bangpound\Bridge\Drupal\Twig;
+
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**

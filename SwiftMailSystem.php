@@ -78,7 +78,6 @@ class SwiftMailSystem implements \MailSystemInterface
         // the message as the particular header type.
         if (!empty($message['headers']) && is_array($message['headers'])) {
             foreach ($message['headers'] as $header_key => $header_value) {
-
                 // Check wether the current header key is empty or represents
                 // a header that should be supressed. If yes, then skip header.
                 if (empty($header_key) || in_array($header_key, $suppressable_headers)) {
@@ -190,16 +189,14 @@ class SwiftMailSystem implements \MailSystemInterface
     {
         // Iterate through each array element.
         foreach ($files as $file) {
-
             if ($file instanceof \stdClass) {
-
                 // Validate required fields.
                 if (empty($file->uri) || empty($file->filename) || empty($file->filemime)) {
                     continue;
                 }
 
                 // Get file data.
-                if (valid_url($file->uri, TRUE)) {
+                if (valid_url($file->uri, true)) {
                     $content = file_get_contents($file->uri);
                 } else {
                     $content = file_get_contents(drupal_realpath($file->uri));
@@ -227,16 +224,14 @@ class SwiftMailSystem implements \MailSystemInterface
     {
         // Iterate through each array element.
         foreach ($images as $image) {
-
             if ($image instanceof \stdClass) {
-
                 // Validate required fields.
                 if (empty($image->uri) || empty($image->filename) || empty($image->filemime) || empty($image->cid)) {
                     continue;
                 }
 
                 // Get image data.
-                if (valid_url($image->uri, TRUE)) {
+                if (valid_url($image->uri, true)) {
                     $content = file_get_contents($image->uri);
                 } else {
                     $content = file_get_contents(drupal_realpath($image->uri));
@@ -251,7 +246,7 @@ class SwiftMailSystem implements \MailSystemInterface
                 // The provided 'cid' needs to be replaced with the 'cid' returned
                 // by the Swift Mailer library.
                 $body = $m->getBody();
-                $body = preg_replace('/cid.*' . $image->cid . '/', $cid, $body);
+                $body = preg_replace('/cid.*'.$image->cid.'/', $cid, $body);
                 $m->setBody($body);
             }
         }
@@ -433,7 +428,7 @@ class SwiftMailSystem implements \MailSystemInterface
         self::removeHeader($message, $key);
 
         // Define variables to hold the header's value and parameters.
-        $header_value = NULL;
+        $header_value = null;
         $header_parameters = array();
 
         // Split the provided value by ';' (semicolon), which we assume is the
@@ -446,11 +441,9 @@ class SwiftMailSystem implements \MailSystemInterface
         // value. We assume that a '=' (equals) character is used to separate the
         // key and value for each of the parameters.
         foreach ($parameter_pairs as $parameter_pair) {
-
             // Find out whether the current parameter pair really is a parameter
             // pair or just a single value.
             if (preg_match('/=/', $parameter_pair) > 0) {
-
                 // Split the parameter so that we can access the parameter's key and
                 // value separately.
                 $parameter_pair = explode('=', $parameter_pair);
@@ -462,7 +455,6 @@ class SwiftMailSystem implements \MailSystemInterface
                 if (!empty($parameter_pair[0]) && !empty($parameter_pair[1])) {
                     $header_parameters[trim($parameter_pair[0])] = trim($parameter_pair[1]);
                 }
-
             } else {
                 $header_value = trim($parameter_pair);
             }
@@ -487,7 +479,7 @@ class SwiftMailSystem implements \MailSystemInterface
      */
     protected static function isDateHeader($key, $value)
     {
-        if (preg_match('/' . self::SWIFTMAILER_DATE_PATTERN . '/', $value)) {
+        if (preg_match('/'.self::SWIFTMAILER_DATE_PATTERN.'/', $value)) {
             return TRUE;
         } else {
             return FALSE;
@@ -533,7 +525,7 @@ class SwiftMailSystem implements \MailSystemInterface
      */
     protected static function isMailboxHeader($key, $value)
     {
-        if (preg_match('/' . self::SWIFTMAILER_MAILBOX_PATTERN . '/', $value)) {
+        if (preg_match('/'.self::SWIFTMAILER_MAILBOX_PATTERN.'/', $value)) {
             return TRUE;
         } else {
             return FALSE;
@@ -689,7 +681,6 @@ class SwiftMailSystem implements \MailSystemInterface
 
         // Iterate through each of the raw mailboxes and process them.
         foreach ($mailboxes_raw as $mailbox_raw) {
-
             // Remove leading and trailing whitespace.
             $mailbox_raw = trim($mailbox_raw);
 
@@ -752,6 +743,6 @@ class SwiftMailSystem implements \MailSystemInterface
             $parts++;
         }
 
-        return ($parts > 1) ? TRUE : FALSE;
+        return ($parts > 1) ? true : false;
     }
 }

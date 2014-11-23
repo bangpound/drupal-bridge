@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class RouterItemConverter implements ParamConverterInterface
 {
-
     /**
      * Reads the 'q' attribute of the request and returns a menu item array..
      *
