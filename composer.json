@@ -1,5 +1,5 @@
 {
-    "name": "bangpound/drupal-bridge",
+    "name": "drufony/drupal-bridge",
     "description": "Symfony Drupal bridge",
     "suggest": {
         "bangpound/drupal-bootstrap": "Replace Drupal 7 bootstrap with a Pimple container",
