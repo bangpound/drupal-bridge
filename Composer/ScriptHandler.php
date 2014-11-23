@@ -3,6 +3,7 @@
 namespace Bangpound\Bridge\Drupal\Composer;
 
 use Bangpound\Bridge\Drupal\Autoload\ClassMapGenerator;
+use Composer\Script\Event;
 use Composer\Script\CommandEvent;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -17,8 +18,20 @@ class ScriptHandler
      * Installs Drupal under the web root directory.
      *
      * @param $event CommandEvent A instance
+     * @deprecated use prepareDrupalRoot instead.
      */
     public static function installDrupal(CommandEvent $event)
+    {
+        self::prepareDrupalRoot($event);
+        self::createSitesDir($event);
+    }
+
+    /**
+     * Links Drupal core, modules, themes and assets into Drupal root.
+     *
+     * @param CommandEvent $event
+     */
+    public static function prepareDrupalRoot(CommandEvent $event)
     {
         $options = self::getOptions($event);
         $composer = $event->getComposer();
@@ -29,12 +42,8 @@ class ScriptHandler
 
         if (is_dir($originDir)) {
 
-            if ($options['drupal-install']['symlink']) {
-                if ($options['drupal-install']['relative']) {
-                    $relativeOriginDir = rtrim($filesystem->makePathRelative($originDir, $targetDir), '/');
-                } else {
-                    $relativeOriginDir = $originDir;
-                }
+            if ($options['drupal-install']['relative']) {
+                $originDir = rtrim($filesystem->makePathRelative($originDir, $targetDir), '/');
             }
 
             $directories = array(
@@ -49,7 +58,7 @@ class ScriptHandler
 
                 if ($options['drupal-install']['symlink']) {
                     $event->getIO()->write(sprintf('Creating symlink for Drupal\'s \'%s\' directory', $directory));
-                    $filesystem->symlink($relativeOriginDir .'/'. $directory, $targetDir .'/'. $directory);
+                    $filesystem->symlink($originDir .'/'. $directory, $targetDir .'/'. $directory);
                 } else {
                     $event->getIO()->write(sprintf('Copying Drupal\'s \'%s\' directory to web root', $directory));
                     $filesystem->mkdir($targetDir .'/'. $directory, 0777);
@@ -57,17 +66,42 @@ class ScriptHandler
                     $filesystem->mirror($originDir .'/'. $directory, $targetDir .'/'. $directory, Finder::create()->ignoreDotFiles(false)->in($originDir));
                 }
             }
-
-            // Check for sites/default because sites/all may exist if composer installs
-            // modules or themes.
-            if (!$filesystem->exists($targetDir .'/sites/default')) {
-                $event->getIO()->write(sprintf('Creating new sites directory'));
-                $filesystem->mirror($originDir .'/sites', $targetDir .'/sites', null, array('override' => true));
-            }
         }
     }
 
-    protected static function getOptions(CommandEvent $event)
+    /**
+     * Create the Drupal site directory.
+     *
+     * This script checks for an existing sites directory, but it also
+     * overwrites existing files. It should only be called on user demand
+     * just to be safe.
+     *
+     * @param Event $event
+     */
+    public static function createSitesDir(Event $event)
+    {
+        $options = self::getOptions($event);
+        $composer = $event->getComposer();
+        $filesystem = new Filesystem();
+
+        $originDir = realpath($composer->getConfig()->get('vendor-dir') . '/drupal/drupal');
+        $targetDir = realpath($options['drupal-root']);
+
+        if (is_dir($originDir)) {
+            if (!$filesystem->exists($targetDir . '/sites')) {
+                if ($event->getIO()->askConfirmation('Create a new sites directory? ', false)) {
+                    $event->getIO()->write(sprintf('Creating new sites directory.'));
+                    $filesystem->mirror($originDir . '/sites', $targetDir . '/sites', null, array('override' => true));
+                }
+            } else {
+                $event->getIO()->write(sprintf('Sites directory already exists.'));
+            }
+        } else {
+            $event->getIO()->write(sprintf('Drupal is not in the vendor directory.'));
+        }
+    }
+
+    protected static function getOptions(Event $event)
     {
         $options = array_merge(
             array(
