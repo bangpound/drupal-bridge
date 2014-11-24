@@ -15,7 +15,7 @@ In your composer.json, define the Drupal root relative to the composer.json file
 }
 ```
 
-The Composer integration works well with `[composer/installers][]` but this is not an
+The Composer integration works well with [`composer/installers`][] but this is not an
 explicit dependency. When `composer/installers` is available, you can install Drupal
 modules, themes, profiles and Drush plugins.
 
@@ -55,7 +55,7 @@ depends on `drupal-root` being set to `docroot/` (as above).
 The name of the directory where a profile is installed apparently must be named precisely
 for the same as its info file.
 
-[composer/installers]: http://composer.github.io/installers/
+[`composer/installers`]: http://composer.github.io/installers/
 
 ### Drupal install
 
