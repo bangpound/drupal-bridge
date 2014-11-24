@@ -153,6 +153,9 @@ into the Drupal root's `profiles` directory.
 
 ```json
 {
+    "require": {
+        "drush/drush": "dev-master"
+    },
     "scripts": {
         "drush": "Bangpound\\Bridge\\Drupal\\Drush\\Composer\\ScriptHandler::drushCommand"
     }
