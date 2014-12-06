@@ -32,21 +32,18 @@ class Bootstrap implements BootstrapInterface
      */
     public function __invoke($phase)
     {
-        if (isset($phase)) {
-            $event = new GetCallableForPhase($phase);
-            $eventName = BootstrapEvents::getEventNameForPhase($phase);
+        $event = new GetCallableForPhase($phase);
+        $eventName = BootstrapEvents::getEventNameForPhase($phase);
 
-            $this->dispatcher->dispatch($eventName, $event);
+        $this->dispatcher->dispatch($eventName, $event);
 
-            if ($event->hasCallable()) {
-                $callable = $event->getCallable();
-                $callable();
-            }
-
-            $event = new BootstrapEvent($phase);
-            $eventName = BootstrapEvents::filterEventNameForPhase($phase);
-
-            $this->dispatcher->dispatch($eventName, $event);
+        if ($event->hasCallable()) {
+            call_user_func($event->getCallable());
         }
+
+        $event = new BootstrapEvent($phase);
+        $eventName = BootstrapEvents::filterEventNameForPhase($phase);
+
+        $this->dispatcher->dispatch($eventName, $event);
     }
 }
