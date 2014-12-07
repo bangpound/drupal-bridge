@@ -3,7 +3,7 @@ namespace Bangpound\Bridge\Drupal\EventListener;
 
 use Bangpound\Bridge\Drupal\BootstrapEvents;
 use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
-use Drupal\Core\BootstrapPhases;
+use Drupal\Core\BootstrapInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -12,14 +12,24 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class DefaultPhasesListener implements EventSubscriberInterface
 {
-    private $phases;
+    /**
+     * This marks a phase callback as the native one. Override
+     * callbacks should not set a priority.
+     */
+    const NATIVE = -1;
 
     /**
-     *
+     * @var BootstrapInterface
+     *  Core bootstrap object.
      */
-    public function __construct()
+    private $bootstrap;
+
+    /**
+     * @param BootstrapInterface $bootstrap
+     */
+    public function __construct(BootstrapInterface $bootstrap)
     {
-        $this->phases = BootstrapPhases::all();
+        $this->bootstrap = $bootstrap;
     }
 
     /**
@@ -27,10 +37,13 @@ class DefaultPhasesListener implements EventSubscriberInterface
      */
     public function onBootstrapEvent(GetCallableForPhase $event)
     {
-        $phase = $event->getPhase();
-        if ($this->phases[$phase]) {
-            $event->setCallable($this->phases[$phase]);
-        }
+        $bootstrap = $this->bootstrap;
+        $callback = function () use ($event, $bootstrap) {
+            $phase = $event->getPhase();
+            $bootstrap($phase);
+        };
+
+        $event->setCallable($callback);
     }
 
     /**
@@ -39,14 +52,14 @@ class DefaultPhasesListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            BootstrapEvents::GET_CONFIGURATION => array('onBootstrapEvent'),
-            BootstrapEvents::GET_PAGE_CACHE    => array('onBootstrapEvent'),
-            BootstrapEvents::GET_DATABASE      => array('onBootstrapEvent'),
-            BootstrapEvents::GET_VARIABLES     => array('onBootstrapEvent'),
-            BootstrapEvents::GET_SESSION       => array('onBootstrapEvent'),
-            BootstrapEvents::GET_PAGE_HEADER   => array('onBootstrapEvent'),
-            BootstrapEvents::GET_LANGUAGE      => array('onBootstrapEvent'),
-            BootstrapEvents::GET_FULL          => array('onBootstrapEvent'),
+            BootstrapEvents::GET_CONFIGURATION => array('onBootstrapEvent', self::NATIVE),
+            BootstrapEvents::GET_PAGE_CACHE    => array('onBootstrapEvent', self::NATIVE),
+            BootstrapEvents::GET_DATABASE      => array('onBootstrapEvent', self::NATIVE),
+            BootstrapEvents::GET_VARIABLES     => array('onBootstrapEvent', self::NATIVE),
+            BootstrapEvents::GET_SESSION       => array('onBootstrapEvent', self::NATIVE),
+            BootstrapEvents::GET_PAGE_HEADER   => array('onBootstrapEvent', self::NATIVE),
+            BootstrapEvents::GET_LANGUAGE      => array('onBootstrapEvent', self::NATIVE),
+            BootstrapEvents::GET_FULL          => array('onBootstrapEvent', self::NATIVE),
         );
     }
 }

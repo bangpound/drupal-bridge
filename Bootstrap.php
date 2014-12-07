@@ -4,57 +4,46 @@ namespace Bangpound\Bridge\Drupal;
 
 use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
 use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
-use Drupal\Core\AbstractBootstrap;
+use Drupal\Core\BootstrapInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class Bootstrap
  * @package Bangpound\Bridge\Drupal
  */
-class Bootstrap extends AbstractBootstrap
+class Bootstrap implements BootstrapInterface
 {
     /**
      * @var EventDispatcherInterface
      */
-    private $dispatcher;
-
-    /**
-     * @param  null       $phase
-     * @return mixed|void
-     */
-    protected function call($phase = NULL)
-    {
-        if (isset($phase)) {
-            $event = new GetCallableForPhase($phase);
-            $eventName = BootstrapEvents::getEventNameForPhase($phase);
-
-            $this->dispatcher->dispatch($eventName, $event);
-
-            if ($event->hasCallable()) {
-                $callable = $event->getCallable();
-                $callable();
-            }
-
-            $event = new BootstrapEvent($phase);
-            $eventName = BootstrapEvents::filterEventNameForPhase($phase);
-
-            $this->dispatcher->dispatch($eventName, $event);
-        }
-    }
+    protected $dispatcher;
 
     /**
      * @param EventDispatcherInterface $dispatcher
      */
-    public function setEventDispatcher(EventDispatcherInterface $dispatcher)
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
 
     /**
-     * {@inheritdoc}
+     * @param  null       $phase
+     * @return mixed|void
      */
-    public function getEventDispatcher()
+    public function __invoke($phase)
     {
-        return $this->dispatcher;
+        $event = new GetCallableForPhase($phase);
+        $eventName = BootstrapEvents::getEventNameForPhase($phase);
+
+        $this->dispatcher->dispatch($eventName, $event);
+
+        if ($event->hasCallable()) {
+            call_user_func($event->getCallable());
+        }
+
+        $event = new BootstrapEvent($phase);
+        $eventName = BootstrapEvents::filterEventNameForPhase($phase);
+
+        $this->dispatcher->dispatch($eventName, $event);
     }
 }

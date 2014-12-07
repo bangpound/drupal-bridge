@@ -12,7 +12,7 @@ use Symfony\Component\Finder\Finder;
  * Class ScriptHandler
  * @package Bangpound\Bridge\Drupal\Composer
  */
-class ScriptHandler
+class ScriptHandler extends AbstractScriptHandler
 {
     /**
      * Installs Drupal under the web root directory.
@@ -46,10 +46,10 @@ class ScriptHandler
             }
 
             $directories = array(
-                'includes',
-                'misc',
-                'modules',
-                'themes',
+              'includes',
+              'misc',
+              'modules',
+              'themes',
             );
 
             foreach ($directories as $directory) {
@@ -100,17 +100,21 @@ class ScriptHandler
         }
     }
 
+    /**
+     * @param  Event $event
+     * @return array
+     */
     protected static function getOptions(Event $event)
     {
         $options = array_merge(
-            array(
-                'drupal-install' => array(
-                    'symlink' => true,
-                    'relative' => true,
-                ),
-                'drupal-root' => '',
+          parent::getOptions($event),
+          array(
+            'drupal-install' => array(
+              'symlink' => TRUE,
+              'relative' => TRUE,
             ),
-            $event->getComposer()->getPackage()->getExtra()
+          ),
+          $event->getComposer()->getPackage()->getExtra()
         );
 
         $options['drupal-install'] = getenv('COMPOSER_DRUPAL_INSTALL') ?: $options['drupal-install'];
