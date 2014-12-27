@@ -45,9 +45,8 @@ class RenderExtension extends \Twig_Extension
      * @param  array  $context Twig rendering context
      * @return string
      */
-    public function render(&$context)
+    public function render(&$context, $propertyPath)
     {
-        $propertyPath = self::createPropertyPath(array_slice(func_get_args(), 1));
         $element = $this->accessor->getValue($context, $propertyPath);
         $output = render($element);
         $this->accessor->setValue($context, $propertyPath, $element);
@@ -58,36 +57,22 @@ class RenderExtension extends \Twig_Extension
     /**
      * @param array $context Twig rendering context
      */
-    public function hide(&$context)
+    public function hide(&$context, $propertyPath)
     {
-        $this->toggle($context, true);
+        $this->toggle($context, $propertyPath, true);
     }
 
     /**
      * @param array $context Twig rendering context
      */
-    public function show(&$context)
+    public function show(&$context, $propertyPath)
     {
-        $this->toggle($context, false);
+        $this->toggle($context, $propertyPath, false);
     }
 
-    private function toggle(&$context, $value)
+    private function toggle(&$context, $propertyPath, $value)
     {
-        $propertyPath = self::createPropertyPath(array_merge(array_slice(func_get_args(), 1)), '#printed');
+        $propertyPath .= '[#printed]';
         $this->accessor->setValue($context, $propertyPath, $value);
-    }
-
-    /**
-     * @param  array  $args  Property arguments from the calling function.
-     * @param  string $final Value to tack on to the end of the path.
-     * @return string
-     */
-    private static function createPropertyPath(array $args, $final = null)
-    {
-        if ($final) {
-            $args = array_merge($args, array($final));
-        }
-
-        return '['. implode('][', $args) .']';
     }
 }
