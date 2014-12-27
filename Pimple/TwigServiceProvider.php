@@ -2,6 +2,7 @@
 
 namespace Drufony\Bridge\Pimple;
 
+use Drufony\Bridge\Twig\Loader\DrupalLoader;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -43,6 +44,10 @@ class TwigServiceProvider implements ServiceProviderInterface
             return $twig;
         };
 
+        $pimple['twig.loader.drupal'] = function ($c) {
+            return new DrupalLoader($GLOBALS['theme'], $GLOBALS['base_theme_info']);
+        };
+
         $pimple['twig.loader.filesystem'] = function ($c) {
             return new \Twig_Loader_Filesystem($c['twig.path']);
         };
@@ -59,6 +64,7 @@ class TwigServiceProvider implements ServiceProviderInterface
             return new \Twig_Loader_Chain(
               array(
                 $c['twig.loader.array'],
+                $c['twig.loader.drupal'],
                 $c['twig.loader.filesystem'],
                 $c['twig.loader.string'],
               )
