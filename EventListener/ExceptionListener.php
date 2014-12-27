@@ -11,7 +11,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ExceptionListener implements EventSubscriberInterface
 {
-
     /**
      * @var RequestMatcherInterface Matches Drupal routes.
      */

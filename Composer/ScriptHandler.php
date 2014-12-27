@@ -110,8 +110,8 @@ class ScriptHandler extends AbstractScriptHandler
           parent::getOptions($event),
           array(
             'drupal-install' => array(
-              'symlink' => TRUE,
-              'relative' => TRUE,
+              'symlink' => true,
+              'relative' => true,
             ),
           ),
           $event->getComposer()->getPackage()->getExtra()

@@ -19,8 +19,7 @@ class DefaultPhasesListener implements EventSubscriberInterface
     const NATIVE = -1;
 
     /**
-     * @var BootstrapInterface
-     *  Core bootstrap object.
+     * @var BootstrapInterface Core bootstrap object.
      */
     private $bootstrap;
 

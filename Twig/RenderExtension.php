@@ -2,7 +2,6 @@
 
 namespace Bangpound\Bridge\Drupal\Twig;
 
-use Bangpound\Bundle\DrupalBundle\Element;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
@@ -27,9 +26,21 @@ class RenderExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('render', array($this, 'render'), array('is_safe' => array('html'), 'needs_context' => true)),
-            new \Twig_SimpleFunction('hide', array($this, 'hide'), array('needs_context' => true)),
-            new \Twig_SimpleFunction('show', array($this, 'show'), array('needs_context' => true)),
+          new \Twig_SimpleFunction(
+            'render',
+            array($this, 'render'),
+            array('is_safe' => array('html'), 'needs_context' => true)
+          ),
+          new \Twig_SimpleFunction(
+            'hide',
+            array($this, 'hide'),
+            array('needs_context' => true)
+          ),
+          new \Twig_SimpleFunction(
+            'show',
+            array($this, 'show'),
+            array('needs_context' => true)
+          ),
         );
     }
 
@@ -42,7 +53,8 @@ class RenderExtension extends \Twig_Extension
     }
 
     /**
-     * @param  array  $context Twig rendering context
+     * @param  array  $context      Twig rendering context
+     * @param  string $propertyPath Property Access path
      * @return string
      */
     public function render(&$context, $propertyPath)
@@ -55,7 +67,8 @@ class RenderExtension extends \Twig_Extension
     }
 
     /**
-     * @param array $context Twig rendering context
+     * @param array  $context      Twig rendering context
+     * @param string $propertyPath Property Access path
      */
     public function hide(&$context, $propertyPath)
     {
@@ -70,6 +83,11 @@ class RenderExtension extends \Twig_Extension
         $this->toggle($context, $propertyPath, false);
     }
 
+    /**
+     * @param array  $context      Twig rendering context
+     * @param string $propertyPath Property Access path
+     * @param $value
+     */
     private function toggle(&$context, $propertyPath, $value)
     {
         $propertyPath .= '[#printed]';

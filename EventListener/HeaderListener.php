@@ -32,7 +32,6 @@ class HeaderListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         if (null === $this->matcher || $this->matcher->matches($request)) {
-
             $response = $event->getResponse();
             $headers = drupal_get_http_header();
             $header_names = _drupal_set_preferred_header_name();
