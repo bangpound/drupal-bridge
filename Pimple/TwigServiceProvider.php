@@ -51,11 +51,16 @@ class TwigServiceProvider implements ServiceProviderInterface
             return new \Twig_Loader_Array($c['twig.templates']);
         };
 
+        $pimple['twig.loader.string'] = function ($c) {
+            return new \Twig_Loader_String();
+        };
+
         $pimple['twig.loader'] = function ($c) {
             return new \Twig_Loader_Chain(
               array(
                 $c['twig.loader.array'],
                 $c['twig.loader.filesystem'],
+                $c['twig.loader.string'],
               )
             );
         };
