@@ -38,7 +38,7 @@ class RenderExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'drupal_render_extension';
+        return 'drupal_render';
     }
 
     /**
