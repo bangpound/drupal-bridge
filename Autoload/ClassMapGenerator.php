@@ -1,13 +1,13 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Autoload;
+namespace Drufony\Bridge\Autoload;
 
 use Symfony\Component\Finder\Finder;
 use Composer\IO\IOInterface;
 
 /**
  * Class ClassMapGenerator
- * @package Bangpound\Bridge\Drupal\Autoload
+ * @package Drufony\Bridge\Autoload
  * @see Composer\Autoload\ClassMapGenerator
  */
 class ClassMapGenerator

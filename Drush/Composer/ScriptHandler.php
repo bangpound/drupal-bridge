@@ -1,8 +1,8 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Drush\Composer;
+namespace Drufony\Bridge\Drush\Composer;
 
-use Bangpound\Bridge\Drupal\Composer\AbstractScriptHandler;
+use Drufony\Bridge\Composer\AbstractScriptHandler;
 use Composer\Script\Event;
 
 class ScriptHandler extends AbstractScriptHandler

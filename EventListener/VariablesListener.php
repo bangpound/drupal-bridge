@@ -1,8 +1,8 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\EventListener;
+namespace Drufony\Bridge\EventListener;
 
-use Bangpound\Bridge\Drupal\BootstrapEvents;
+use Drufony\Bridge\BootstrapEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Controller;
+namespace Drufony\Bridge\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;

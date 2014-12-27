@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\ParamConverter;
+namespace Drufony\Bridge\ParamConverter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class RouterItemConverter
- * @package Bangpound\Bridge\Drupal\ParamConverter
+ * @package Drufony\Bridge\ParamConverter
  */
 class RouterItemConverter implements ParamConverterInterface
 {

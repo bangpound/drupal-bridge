@@ -1,12 +1,12 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Event;
+namespace Drufony\Bridge\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Class BootstrapEvent
- * @package Bangpound\Bridge\Drupal\Event
+ * @package Drufony\Bridge\Event
  */
 class BootstrapEvent extends Event
 {

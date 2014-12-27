@@ -1,10 +1,10 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal;
+namespace Drufony\Bridge;
 
 /**
  * Class SwiftMailSystem
- * @package Bangpound\Bridge\Drupal
+ * @package Drufony\Bridge
  */
 class SwiftMailSystem implements \MailSystemInterface
 {

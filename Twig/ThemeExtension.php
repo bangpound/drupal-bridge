@@ -1,10 +1,10 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Twig;
+namespace Drufony\Bridge\Twig;
 
 /**
  * Class ThemeExtension
- * @package Bangpound\Bridge\Drupal\Twig
+ * @package Drufony\Bridge\Twig
  */
 class ThemeExtension extends \Twig_Extension
 {

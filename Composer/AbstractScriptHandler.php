@@ -1,12 +1,12 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Composer;
+namespace Drufony\Bridge\Composer;
 
 use Composer\Script\Event;
 
 /**
  * Class AbstractScriptHandler
- * @package Bangpound\Bridge\Drupal\Composer
+ * @package Drufony\Bridge\Composer
  */
 class AbstractScriptHandler
 {

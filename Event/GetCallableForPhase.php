@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Event;
+namespace Drufony\Bridge\Event;
 
 class GetCallableForPhase extends BootstrapEvent
 {

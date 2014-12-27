@@ -22,7 +22,7 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Bangpound\\Bridge\\Drupal\\": "" }
+        "psr-4": { "Drufony\\Bridge\\": "" }
     },
     "extra": {
         "branch-alias": {

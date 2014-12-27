@@ -1,7 +1,7 @@
 <?php
-namespace Bangpound\Bridge\Drupal\EventListener;
+namespace Drufony\Bridge\EventListener;
 
-use Bangpound\Bridge\Drupal\BootstrapEvents;
+use Drufony\Bridge\BootstrapEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;

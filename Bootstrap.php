@@ -1,15 +1,15 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal;
+namespace Drufony\Bridge;
 
-use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
-use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
+use Drufony\Bridge\Event\BootstrapEvent;
+use Drufony\Bridge\Event\GetCallableForPhase;
 use Drupal\Core\BootstrapInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class Bootstrap
- * @package Bangpound\Bridge\Drupal
+ * @package Drufony\Bridge
  */
 class Bootstrap implements BootstrapInterface
 {

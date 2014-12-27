@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\EventListener;
+namespace Drufony\Bridge\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;

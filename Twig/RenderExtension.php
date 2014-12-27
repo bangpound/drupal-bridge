@@ -1,12 +1,12 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Twig;
+namespace Drufony\Bridge\Twig;
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Class RenderExtension
- * @package Bangpound\Bridge\Drupal\Twig
+ * @package Drufony\Bridge\Twig
  */
 class RenderExtension extends \Twig_Extension
 {

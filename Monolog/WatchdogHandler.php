@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Monolog;
+namespace Drufony\Bridge\Monolog;
 
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal;
+namespace Drufony\Bridge;
 
 /**
  * Class BootstrapEvents
- * @package Bangpound\Bridge\Drupal
+ * @package Drufony\Bridge
  */
 final class BootstrapEvents
 {

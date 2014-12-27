@@ -1,8 +1,8 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Composer;
+namespace Drufony\Bridge\Composer;
 
-use Bangpound\Bridge\Drupal\Autoload\ClassMapGenerator;
+use Drufony\Bridge\Autoload\ClassMapGenerator;
 use Composer\Script\Event;
 use Composer\Script\CommandEvent;
 use Symfony\Component\Filesystem\Filesystem;
@@ -10,7 +10,7 @@ use Symfony\Component\Finder\Finder;
 
 /**
  * Class ScriptHandler
- * @package Bangpound\Bridge\Drupal\Composer
+ * @package Drufony\Bridge\Composer
  */
 class ScriptHandler extends AbstractScriptHandler
 {

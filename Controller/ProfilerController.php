@@ -1,13 +1,13 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Controller;
+namespace Drufony\Bridge\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 
 /**
  * Class ProfilerController
- * @package Bangpound\Bridge\Drupal\Controller
+ * @package Drufony\Bridge\Controller
  */
 class ProfilerController
 {

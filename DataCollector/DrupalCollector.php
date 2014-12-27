@@ -1,8 +1,8 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\DataCollector;
+namespace Drufony\Bridge\DataCollector;
 
-use Bangpound\Bridge\Drupal\BootstrapEvents;
+use Drufony\Bridge\BootstrapEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /**
  * Class DrupalCollector
- * @package Bangpound\Bridge\Drupal\DataCollector
+ * @package Drufony\Bridge\DataCollector
  */
 class DrupalCollector extends DataCollector implements EventSubscriberInterface
 {

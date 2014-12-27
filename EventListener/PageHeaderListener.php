@@ -1,14 +1,14 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\EventListener;
+namespace Drufony\Bridge\EventListener;
 
-use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
+use Drufony\Bridge\BootstrapEvents;
+use Drufony\Bridge\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class PageHeaderListener
- * @package Bangpound\Bridge\Drupal\EventListener
+ * @package Drufony\Bridge\EventListener
  */
 class PageHeaderListener implements EventSubscriberInterface
 {
@@ -31,7 +31,7 @@ class PageHeaderListener implements EventSubscriberInterface
     /**
      * Listener prevents output buffering and headers from being sent.
      *
-     * @param \Bangpound\Bridge\Drupal\Event\GetCallableForPhase $event
+     * @param \Drufony\Bridge\Event\GetCallableForPhase $event
      * @see _drupal_bootstrap_page_header
      */
     public function onBootstrapPageHeader(GetCallableForPhase $event)
