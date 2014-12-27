@@ -1,6 +1,6 @@
 <?php
 
-namespace Drufony\Bridge;
+namespace Drufony\Bridge\Pimple;
 
 use Drufony\Bridge\EventListener\DefaultPhasesListener;
 use Pimple\Container;
@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class BootstrapPhases
- * @package Drufony\Bridge
+ * @package Drufony\Bridge\Pimple
  */
 class BootstrapServiceProvider implements ServiceProviderInterface, EventListenerProviderInterface
 {
