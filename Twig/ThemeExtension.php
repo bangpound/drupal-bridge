@@ -14,7 +14,7 @@ class ThemeExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('drupal_theme', 'theme', array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('theme', 'theme', array('is_safe' => array('html'))),
         );
     }
 

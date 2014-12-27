@@ -27,9 +27,9 @@ class RenderExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('drupal_render', array($this, 'render'), array('is_safe' => array('html'), 'needs_context' => true)),
-            new \Twig_SimpleFunction('drupal_hide', array($this, 'hide'), array('needs_context' => true)),
-            new \Twig_SimpleFunction('drupal_show', array($this, 'show'), array('needs_context' => true)),
+            new \Twig_SimpleFunction('render', array($this, 'render'), array('is_safe' => array('html'), 'needs_context' => true)),
+            new \Twig_SimpleFunction('hide', array($this, 'hide'), array('needs_context' => true)),
+            new \Twig_SimpleFunction('show', array($this, 'show'), array('needs_context' => true)),
         );
     }
 
