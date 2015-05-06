@@ -8,8 +8,7 @@ use Drupal\Core\BootstrapInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class Bootstrap
- * @package Drufony\Bridge
+ * Class Bootstrap.
  */
 class Bootstrap implements BootstrapInterface
 {
@@ -27,7 +26,8 @@ class Bootstrap implements BootstrapInterface
     }
 
     /**
-     * @param  null       $phase
+     * @param null $phase
+     *
      * @return mixed|void
      */
     public function __invoke($phase)

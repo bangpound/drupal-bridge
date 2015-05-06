@@ -3,8 +3,7 @@
 namespace Drufony\Bridge\Twig;
 
 /**
- * Class UrlExtension
- * @package Drufony\Bridge\Twig
+ * Class UrlExtension.
  */
 class UrlExtension extends \Twig_Extension
 {

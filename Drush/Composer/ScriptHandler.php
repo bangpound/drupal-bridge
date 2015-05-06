@@ -41,6 +41,7 @@ class ScriptHandler extends AbstractScriptHandler
      * cannot be loaded because it produces side effects.
      *
      * @see drush_main
+     *
      * @return int|string
      */
     protected static function drushMain()

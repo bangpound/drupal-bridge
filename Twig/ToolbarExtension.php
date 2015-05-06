@@ -5,8 +5,7 @@ namespace Drufony\Bridge\Twig;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Class ToolbarExtension
- * @package Drufony\Bridge\Twig
+ * Class ToolbarExtension.
  */
 class ToolbarExtension extends \Twig_Extension
 {

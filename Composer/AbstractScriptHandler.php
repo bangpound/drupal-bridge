@@ -5,13 +5,13 @@ namespace Drufony\Bridge\Composer;
 use Composer\Script\Event;
 
 /**
- * Class AbstractScriptHandler
- * @package Drufony\Bridge\Composer
+ * Class AbstractScriptHandler.
  */
 class AbstractScriptHandler
 {
     /**
-     * @param  Event $event
+     * @param Event $event
+     *
      * @return array
      */
     protected static function getOptions(Event $event)

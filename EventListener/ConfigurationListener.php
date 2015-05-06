@@ -8,8 +8,7 @@ use Drufony\Bridge\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class ConfigurationListener
- * @package Drufony\Bridge\EventListener
+ * Class ConfigurationListener.
  */
 class ConfigurationListener implements EventSubscriberInterface
 {
@@ -144,6 +143,7 @@ class ConfigurationListener implements EventSubscriberInterface
      * Initialize the configuration, including variables from settings.php.
      *
      * @param BootstrapEvent $event
+     *
      * @see drupal_settings_initialize
      */
     public function initializeSettings(BootstrapEvent $event)

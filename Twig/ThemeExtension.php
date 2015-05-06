@@ -3,8 +3,7 @@
 namespace Drufony\Bridge\Twig;
 
 /**
- * Class ThemeExtension
- * @package Drufony\Bridge\Twig
+ * Class ThemeExtension.
  */
 class ThemeExtension extends \Twig_Extension
 {

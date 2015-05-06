@@ -10,8 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /**
- * Class DrupalCollector
- * @package Drufony\Bridge\DataCollector
+ * Class DrupalCollector.
  */
 class DrupalCollector extends DataCollector implements EventSubscriberInterface
 {

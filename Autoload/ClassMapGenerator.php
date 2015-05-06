@@ -6,8 +6,8 @@ use Symfony\Component\Finder\Finder;
 use Composer\IO\IOInterface;
 
 /**
- * Class ClassMapGenerator
- * @package Drufony\Bridge\Autoload
+ * Class ClassMapGenerator.
+ *
  * @see Composer\Autoload\ClassMapGenerator
  */
 class ClassMapGenerator
@@ -20,7 +20,7 @@ class ClassMapGenerator
     private static $extensions = array('php', 'inc', 'hh', 'module', 'theme', 'profile');
 
     /**
-     * Generate a class map file
+     * Generate a class map file.
      *
      * @param \Traversable $dirs Directories or a single path to search in
      * @param string       $file The name of the class map file
@@ -41,15 +41,15 @@ class ClassMapGenerator
     }
 
     /**
-     * Iterate over all files in the given directory searching for classes
+     * Iterate over all files in the given directory searching for classes.
      *
-     * @param \Iterator|string $path      The path to search in or an iterator
-     * @param string           $whitelist Regex that matches against the file path
+     * @param \Iterator|string         $path      The path to search in or an iterator
+     * @param string                   $whitelist Regex that matches against the file path
+     * @param \Composer\IO\IOInterface $io
      *
-     * @param  \Composer\IO\IOInterface $io
-     * @throws \RuntimeException        When the path is neither an existing file nor directory
-     * @return array                    A class map array
+     * @throws \RuntimeException When the path is neither an existing file nor directory
      *
+     * @return array A class map array
      */
     public static function createMap($path, $whitelist = null, IOInterface $io = null)
     {
@@ -98,11 +98,13 @@ class ClassMapGenerator
     }
 
     /**
-     * Extract the classes in the given file
+     * Extract the classes in the given file.
      *
-     * @param  string            $path The file to check
+     * @param string $path The file to check
+     *
      * @throws \RuntimeException
-     * @return array             The found classes
+     *
+     * @return array The found classes
      */
     private static function findClasses($path)
     {

@@ -7,8 +7,7 @@ use Drufony\Bridge\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class FullListener
- * @package Drufony\Bridge\EventListener
+ * Class FullListener.
  */
 class FullListener implements EventSubscriberInterface
 {
@@ -19,6 +18,7 @@ class FullListener implements EventSubscriberInterface
      * until after the firewall listeners have loaded the user.
      *
      * @return array
+     *
      * @see _drupal_bootstrap_full
      */
     public static function getSubscribedEvents()

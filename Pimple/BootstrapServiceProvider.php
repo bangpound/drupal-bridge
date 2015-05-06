@@ -9,8 +9,7 @@ use Silex\Api\EventListenerProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class BootstrapPhases
- * @package Drufony\Bridge\Pimple
+ * Class BootstrapPhases.
  */
 class BootstrapServiceProvider implements ServiceProviderInterface, EventListenerProviderInterface
 {

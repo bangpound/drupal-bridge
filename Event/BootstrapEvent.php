@@ -5,8 +5,7 @@ namespace Drufony\Bridge\Event;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class BootstrapEvent
- * @package Drufony\Bridge\Event
+ * Class BootstrapEvent.
  */
 class BootstrapEvent extends Event
 {

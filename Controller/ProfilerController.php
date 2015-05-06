@@ -6,8 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 
 /**
- * Class ProfilerController
- * @package Drufony\Bridge\Controller
+ * Class ProfilerController.
  */
 class ProfilerController
 {
@@ -23,9 +22,9 @@ class ProfilerController
     /**
      * Renders the profiler panel for the given token.
      *
-     * @param string  $token          The profiler token
-     * @param string  $connectionName
-     * @param integer $query
+     * @param string $token          The profiler token
+     * @param string $connectionName
+     * @param int    $query
      *
      * @return Response A Response instance
      */

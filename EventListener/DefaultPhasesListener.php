@@ -1,4 +1,5 @@
 <?php
+
 namespace Drufony\Bridge\EventListener;
 
 use Drufony\Bridge\BootstrapEvents;
@@ -7,8 +8,7 @@ use Drupal\Core\BootstrapInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class DefaultPhasesListener
- * @package Drufony\Bridge\EventListener
+ * Class DefaultPhasesListener.
  */
 class DefaultPhasesListener implements EventSubscriberInterface
 {

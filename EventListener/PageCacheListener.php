@@ -29,6 +29,7 @@ class PageCacheListener implements EventSubscriberInterface
      * Drupal page caching support.
      *
      * @param \Drufony\Bridge\Event\GetCallableForPhase $event
+     *
      * @see _drupal_bootstrap_page_cache
      */
     public function onBootstrapPageCache(GetCallableForPhase $event)

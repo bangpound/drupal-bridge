@@ -7,8 +7,7 @@ use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
 /**
- * Class TwigServiceProvider
- * @package Drufony\Bridge\Pimple
+ * Class TwigServiceProvider.
  */
 class TwigServiceProvider implements ServiceProviderInterface
 {

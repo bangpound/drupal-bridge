@@ -6,8 +6,7 @@ use Drufony\Bridge\BootstrapEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class VariablesListener
- * @package Bangpound\Bundle\DrupalBundle\EventListener
+ * Class VariablesListener.
  */
 class VariablesListener implements EventSubscriberInterface
 {

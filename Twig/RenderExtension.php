@@ -5,8 +5,7 @@ namespace Drufony\Bridge\Twig;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
- * Class RenderExtension
- * @package Drufony\Bridge\Twig
+ * Class RenderExtension.
  */
 class RenderExtension extends \Twig_Extension
 {
@@ -53,8 +52,9 @@ class RenderExtension extends \Twig_Extension
     }
 
     /**
-     * @param  array  $context      Twig rendering context
-     * @param  string $propertyPath Property Access path
+     * @param array  $context      Twig rendering context
+     * @param string $propertyPath Property Access path
+     *
      * @return string
      */
     public function render(&$context, $propertyPath)

@@ -1,9 +1,9 @@
 <?php
+
 namespace Drufony\Bridge\EventListener;
 
 use Drufony\Bridge\BootstrapEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents as BaseKernelEvents;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
@@ -61,7 +61,7 @@ class HeaderListener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritDocs}
+     * {@inheritDocs}.
      */
     public static function getSubscribedEvents()
     {

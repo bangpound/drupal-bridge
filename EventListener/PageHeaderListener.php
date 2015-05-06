@@ -7,8 +7,7 @@ use Drufony\Bridge\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class PageHeaderListener
- * @package Drufony\Bridge\EventListener
+ * Class PageHeaderListener.
  */
 class PageHeaderListener implements EventSubscriberInterface
 {
@@ -32,6 +31,7 @@ class PageHeaderListener implements EventSubscriberInterface
      * Listener prevents output buffering and headers from being sent.
      *
      * @param \Drufony\Bridge\Event\GetCallableForPhase $event
+     *
      * @see _drupal_bootstrap_page_header
      */
     public function onBootstrapPageHeader(GetCallableForPhase $event)

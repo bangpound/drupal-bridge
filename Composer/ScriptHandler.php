@@ -9,8 +9,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Class ScriptHandler
- * @package Drufony\Bridge\Composer
+ * Class ScriptHandler.
  */
 class ScriptHandler extends AbstractScriptHandler
 {
@@ -18,6 +17,7 @@ class ScriptHandler extends AbstractScriptHandler
      * Installs Drupal under the web root directory.
      *
      * @param $event CommandEvent A instance
+     *
      * @deprecated use prepareDrupalRoot instead.
      */
     public static function installDrupal(CommandEvent $event)
@@ -101,7 +101,8 @@ class ScriptHandler extends AbstractScriptHandler
     }
 
     /**
-     * @param  Event $event
+     * @param Event $event
+     *
      * @return array
      */
     protected static function getOptions(Event $event)
@@ -174,7 +175,7 @@ class ScriptHandler extends AbstractScriptHandler
         ;
 
         foreach ($finder as $file) {
-            /** @var \Symfony\Component\Finder\SplFileInfo $file */
+            /* @var \Symfony\Component\Finder\SplFileInfo $file */
             chdir($file->getPathInfo().'/'.$file->getRelativePathname());
             $io->write(sprintf('Dumping classmap for <info>%s</info>', $file->getPathInfo().'/'.$file->getRelativePathname()));
             $dirs = array_filter(self::$subdir_paths, 'file_exists');
