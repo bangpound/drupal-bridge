@@ -23,8 +23,8 @@ class TwigServiceProvider implements ServiceProviderInterface
         $pimple['twig'] = function ($c) {
             $c['twig.options'] = array_replace(
               array(
-                'charset' => isset($c['charset']) ? $c['charset'] : 'UTF-8',
-                'debug' => isset($c['debug']) ? $c['debug'] : false,
+                'charset'          => isset($c['charset']) ? $c['charset'] : 'UTF-8',
+                'debug'            => isset($c['debug']) ? $c['debug'] : false,
                 'strict_variables' => isset($c['debug']) ? $c['debug'] : false,
               ),
               $c['twig.options']

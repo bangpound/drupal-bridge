@@ -12,6 +12,7 @@ class DrupalLoader extends \Twig_Loader_Filesystem
     public function __construct($theme, $base_theme = array())
     {
         $cached = cache_get($theme.':twig_paths');
+
         $paths = array();
         if ($cached) {
             $this->setPaths($cached->data, $theme);
