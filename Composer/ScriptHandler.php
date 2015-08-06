@@ -4,7 +4,6 @@ namespace Drufony\Bridge\Composer;
 
 use Drufony\Bridge\Autoload\ClassMapGenerator;
 use Composer\Script\Event;
-use Composer\Script\CommandEvent;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
@@ -16,11 +15,11 @@ class ScriptHandler extends AbstractScriptHandler
     /**
      * Installs Drupal under the web root directory.
      *
-     * @param $event CommandEvent A instance
+     * @param $event Event A instance
      *
      * @deprecated use prepareDrupalRoot instead.
      */
-    public static function installDrupal(CommandEvent $event)
+    public static function installDrupal(Event $event)
     {
         self::prepareDrupalRoot($event);
         self::createSitesDir($event);
@@ -29,9 +28,9 @@ class ScriptHandler extends AbstractScriptHandler
     /**
      * Links Drupal core, modules, themes and assets into Drupal root.
      *
-     * @param CommandEvent $event
+     * @param Event $event
      */
-    public static function prepareDrupalRoot(CommandEvent $event)
+    public static function prepareDrupalRoot(Event $event)
     {
         $options = self::getOptions($event);
         $composer = $event->getComposer();
@@ -150,9 +149,9 @@ class ScriptHandler extends AbstractScriptHandler
     );
 
     /**
-     * @param CommandEvent $event
+     * @param Event $event
      */
-    public static function dumpAutoload(CommandEvent $event)
+    public static function dumpAutoload(Event $event)
     {
         $cwd = getcwd();
         $io = $event->getIO();
