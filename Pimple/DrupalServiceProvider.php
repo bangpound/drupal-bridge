@@ -2,6 +2,7 @@
 
 namespace Drufony\Bridge\Pimple;
 
+use Drufony\Bridge\Manager\Bootstrap;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Api\BootableProviderInterface;
@@ -23,17 +24,16 @@ class DrupalServiceProvider implements ServiceProviderInterface, BootableProvide
         $pimple['drupal.server_variables'] = array(
           'url' => 'http://default/index.php',
         );
-        $pimple['drupal.bootstrap'] = self::DRUPAL_BOOTSTRAP_FULL;
+        $pimple['drupal.bootstrap'] = 'DRUPAL_BOOTSTRAP_FULL';
         $pimple['drupal.root'] = '';
+
+        $pimple['drupal.bootstrap_manager'] = function (Container $c) {
+            return new Bootstrap($c['drupal.root'], $c['drupal.server_variables']);
+        };
     }
 
     public function boot(Application $app)
     {
-        chdir($app['drupal.root']);
-        define('DRUPAL_ROOT', getcwd());
-
-        require_once DRUPAL_ROOT.'/includes/bootstrap.inc';
-        drupal_override_server_variables($app['drupal.server_variables']);
-        drupal_bootstrap($app['drupal.bootstrap']);
+        $app['drupal.bootstrap_manager']->boot($app['drupal.bootstrap']);
     }
 }
