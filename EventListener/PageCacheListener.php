@@ -1,9 +1,9 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\EventListener;
+namespace Drufony\Bridge\EventListener;
 
-use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
+use Drufony\Bridge\BootstrapEvents;
+use Drufony\Bridge\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PageCacheListener implements EventSubscriberInterface
@@ -28,7 +28,8 @@ class PageCacheListener implements EventSubscriberInterface
      * Event listener replaces the DRUPAL_BOOTSTRAP_PAGE_CACHE to remove
      * Drupal page caching support.
      *
-     * @param \Bangpound\Bridge\Drupal\Event\GetCallableForPhase $event
+     * @param \Drufony\Bridge\Event\GetCallableForPhase $event
+     *
      * @see _drupal_bootstrap_page_cache
      */
     public function onBootstrapPageCache(GetCallableForPhase $event)

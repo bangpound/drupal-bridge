@@ -1,14 +1,14 @@
 <?php
-namespace Bangpound\Bridge\Drupal\EventListener;
 
-use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
+namespace Drufony\Bridge\EventListener;
+
+use Drufony\Bridge\BootstrapEvents;
+use Drufony\Bridge\Event\GetCallableForPhase;
 use Drupal\Core\BootstrapInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class DefaultPhasesListener
- * @package Bangpound\Bridge\Drupal\EventListener
+ * Class DefaultPhasesListener.
  */
 class DefaultPhasesListener implements EventSubscriberInterface
 {
@@ -19,8 +19,7 @@ class DefaultPhasesListener implements EventSubscriberInterface
     const NATIVE = -1;
 
     /**
-     * @var BootstrapInterface
-     *  Core bootstrap object.
+     * @var BootstrapInterface Core bootstrap object.
      */
     private $bootstrap;
 
@@ -33,7 +32,7 @@ class DefaultPhasesListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Bangpound\Bridge\Drupal\Event\GetCallableForPhase $event
+     * @param \Drufony\Bridge\Event\GetCallableForPhase $event
      */
     public function onBootstrapEvent(GetCallableForPhase $event)
     {

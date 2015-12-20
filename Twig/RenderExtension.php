@@ -1,13 +1,11 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Twig;
+namespace Drufony\Bridge\Twig;
 
-use Bangpound\Bundle\DrupalBundle\Element;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
- * Class RenderExtension
- * @package Bangpound\Bridge\Drupal\Twig
+ * Class RenderExtension.
  */
 class RenderExtension extends \Twig_Extension
 {
@@ -27,10 +25,21 @@ class RenderExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('drupal_render', array($this, 'render'), array('is_safe' => array('html'), 'needs_context' => true)),
-            new \Twig_SimpleFunction('drupal_hide', array($this, 'hide'), array('needs_context' => true)),
-            new \Twig_SimpleFunction('drupal_show', array($this, 'show'), array('needs_context' => true)),
-            new \Twig_SimpleFunction('field_view_values', array($this, 'field_view_values'), array('is_safe' => array('html'))),
+          new \Twig_SimpleFunction(
+            'render',
+            array($this, 'render'),
+            array('is_safe' => array('html'), 'needs_context' => true)
+          ),
+          new \Twig_SimpleFunction(
+            'hide',
+            array($this, 'hide'),
+            array('needs_context' => true)
+          ),
+          new \Twig_SimpleFunction(
+            'show',
+            array($this, 'show'),
+            array('needs_context' => true)
+          ),
         );
     }
 
@@ -39,29 +48,17 @@ class RenderExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'drupal_render_extension';
-    }
-
-    public function field_view_values($entity_type, $entity, $field_name, $display = array(), $langcode = NULL)
-    {
-        $items = field_get_items($entity_type, $entity, $field_name);
-        if ($items) {
-            $output = array();
-            foreach ($items as $item) {
-                $output[] = field_view_value($entity_type, $entity, $field_name, $item, $display, $langcode);
-            }
-
-            return $output;
-        }
+        return 'drupal_render';
     }
 
     /**
-     * @param  array  $context Twig rendering context
+     * @param array  $context      Twig rendering context
+     * @param string $propertyPath Property Access path
+     *
      * @return string
      */
-    public function render(&$context)
+    public function render(&$context, $propertyPath)
     {
-        $propertyPath = self::createPropertyPath(array_slice(func_get_args(), 1));
         $element = $this->accessor->getValue($context, $propertyPath);
         $output = render($element);
         $this->accessor->setValue($context, $propertyPath, $element);
@@ -70,38 +67,30 @@ class RenderExtension extends \Twig_Extension
     }
 
     /**
-     * @param array $context Twig rendering context
+     * @param array  $context      Twig rendering context
+     * @param string $propertyPath Property Access path
      */
-    public function hide(&$context)
+    public function hide(&$context, $propertyPath)
     {
-        $this->toggle($context, true);
+        $this->toggle($context, $propertyPath, true);
     }
 
     /**
      * @param array $context Twig rendering context
      */
-    public function show(&$context)
+    public function show(&$context, $propertyPath)
     {
-        $this->toggle($context, false);
+        $this->toggle($context, $propertyPath, false);
     }
 
-    private function toggle(&$context, $value)
+    /**
+     * @param array  $context      Twig rendering context
+     * @param string $propertyPath Property Access path
+     * @param $value
+     */
+    private function toggle(&$context, $propertyPath, $value)
     {
-        $propertyPath = self::createPropertyPath(array_merge(array_slice(func_get_args(), 1)), '#printed');
+        $propertyPath .= '[#printed]';
         $this->accessor->setValue($context, $propertyPath, $value);
-    }
-
-    /**
-     * @param  array  $args  Property arguments from the calling function.
-     * @param  string $final Value to tack on to the end of the path.
-     * @return string
-     */
-    private static function createPropertyPath(array $args, $final = null)
-    {
-        if ($final) {
-            $args = array_merge($args, array($final));
-        }
-
-        return '['. implode('][', $args) .']';
     }
 }

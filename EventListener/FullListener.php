@@ -1,14 +1,13 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\EventListener;
+namespace Drufony\Bridge\EventListener;
 
-use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
+use Drufony\Bridge\BootstrapEvents;
+use Drufony\Bridge\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class FullListener
- * @package Bangpound\Bridge\Drupal\EventListener
+ * Class FullListener.
  */
 class FullListener implements EventSubscriberInterface
 {
@@ -19,6 +18,7 @@ class FullListener implements EventSubscriberInterface
      * until after the firewall listeners have loaded the user.
      *
      * @return array
+     *
      * @see _drupal_bootstrap_full
      */
     public static function getSubscribedEvents()
@@ -35,7 +35,7 @@ class FullListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Bangpound\Bridge\Drupal\Event\GetCallableForPhase $event
+     * @param \Drufony\Bridge\Event\GetCallableForPhase $event
      */
     public function onBootstrapFull(GetCallableForPhase $event)
     {

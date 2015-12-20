@@ -1,17 +1,18 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Event;
+namespace Drufony\Bridge\Event;
 
 class GetCallableForPhase extends BootstrapEvent
 {
     /**
-     * The callable object
+     * The callable object.
+     *
      * @var callable
      */
     private $callable;
 
     /**
-     * Returns the callable object
+     * Returns the callable object.
      *
      * @return callable
      *
@@ -23,7 +24,7 @@ class GetCallableForPhase extends BootstrapEvent
     }
 
     /**
-     * Sets a callable and stops event propagation
+     * Sets a callable and stops event propagation.
      *
      * @param $callable
      *
@@ -39,7 +40,7 @@ class GetCallableForPhase extends BootstrapEvent
     }
 
     /**
-     * Returns whether a callable was set
+     * Returns whether a callable was set.
      *
      * @return Boolean Whether a callable was set
      *

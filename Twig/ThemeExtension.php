@@ -1,10 +1,9 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Twig;
+namespace Drufony\Bridge\Twig;
 
 /**
- * Class ThemeExtension
- * @package Bangpound\Bridge\Drupal\Twig
+ * Class ThemeExtension.
  */
 class ThemeExtension extends \Twig_Extension
 {
@@ -14,7 +13,7 @@ class ThemeExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('drupal_theme', 'theme', array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('theme', 'theme', array('is_safe' => array('html'))),
         );
     }
 

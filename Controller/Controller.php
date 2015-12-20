@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Controller;
+namespace Drufony\Bridge\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -15,13 +15,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class Controller
 {
     /**
-     * Controller returns the actual callback result
+     * Controller returns the actual callback result.
      *
      * This assumes that there are kernel event listeners who will convert
      * the controller result into a Symfony response.
      *
      * @param $router_item
+     *
      * @return int|mixed
+     *
      * @see menu_execute_active_handler()
      *
      * @Route(requirements={"q" = "\.+"}, defaults={"_legacy" = "drupal"})
@@ -46,10 +48,13 @@ class Controller
      *
      * @param $q
      * @param $router_item
+     *
      * @throws \Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+     *
      * @return Response
+     *
      * @see drupal_deliver_page
      * @see drupal_deliver_html_page
      *
@@ -90,7 +95,9 @@ class Controller
      *
      * @param $q
      * @param $router_item
+     *
      * @return Response
+     *
      * @see drupal_deliver_page
      * @Route(requirements={"q" = "\.+"}, defaults={"_legacy" = "drupal"})
      * @ParamConverter("router_item", converter="drupal.router_item")

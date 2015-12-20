@@ -1,8 +1,8 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Drush\Composer;
+namespace Drufony\Bridge\Drush\Composer;
 
-use Bangpound\Bridge\Drupal\Composer\AbstractScriptHandler;
+use Drufony\Bridge\Composer\AbstractScriptHandler;
 use Composer\Script\Event;
 
 class ScriptHandler extends AbstractScriptHandler
@@ -41,6 +41,7 @@ class ScriptHandler extends AbstractScriptHandler
      * cannot be loaded because it produces side effects.
      *
      * @see drush_main
+     *
      * @return int|string
      */
     protected static function drushMain()

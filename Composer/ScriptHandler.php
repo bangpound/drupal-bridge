@@ -1,26 +1,25 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Composer;
+namespace Drufony\Bridge\Composer;
 
-use Bangpound\Bridge\Drupal\Autoload\ClassMapGenerator;
+use Drufony\Bridge\Autoload\ClassMapGenerator;
 use Composer\Script\Event;
-use Composer\Script\CommandEvent;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Class ScriptHandler
- * @package Bangpound\Bridge\Drupal\Composer
+ * Class ScriptHandler.
  */
 class ScriptHandler extends AbstractScriptHandler
 {
     /**
      * Installs Drupal under the web root directory.
      *
-     * @param $event CommandEvent A instance
+     * @param $event Event A instance
+     *
      * @deprecated use prepareDrupalRoot instead.
      */
-    public static function installDrupal(CommandEvent $event)
+    public static function installDrupal(Event $event)
     {
         self::prepareDrupalRoot($event);
         self::createSitesDir($event);
@@ -29,9 +28,9 @@ class ScriptHandler extends AbstractScriptHandler
     /**
      * Links Drupal core, modules, themes and assets into Drupal root.
      *
-     * @param CommandEvent $event
+     * @param Event $event
      */
-    public static function prepareDrupalRoot(CommandEvent $event)
+    public static function prepareDrupalRoot(Event $event)
     {
         $options = self::getOptions($event);
         $composer = $event->getComposer();
@@ -101,7 +100,8 @@ class ScriptHandler extends AbstractScriptHandler
     }
 
     /**
-     * @param  Event $event
+     * @param Event $event
+     *
      * @return array
      */
     protected static function getOptions(Event $event)
@@ -110,8 +110,8 @@ class ScriptHandler extends AbstractScriptHandler
           parent::getOptions($event),
           array(
             'drupal-install' => array(
-              'symlink' => TRUE,
-              'relative' => TRUE,
+              'symlink' => true,
+              'relative' => true,
             ),
           ),
           $event->getComposer()->getPackage()->getExtra()
@@ -149,9 +149,9 @@ class ScriptHandler extends AbstractScriptHandler
     );
 
     /**
-     * @param CommandEvent $event
+     * @param Event $event
      */
-    public static function dumpAutoload(CommandEvent $event)
+    public static function dumpAutoload(Event $event)
     {
         $cwd = getcwd();
         $io = $event->getIO();
@@ -174,7 +174,7 @@ class ScriptHandler extends AbstractScriptHandler
         ;
 
         foreach ($finder as $file) {
-            /** @var \Symfony\Component\Finder\SplFileInfo $file */
+            /* @var \Symfony\Component\Finder\SplFileInfo $file */
             chdir($file->getPathInfo().'/'.$file->getRelativePathname());
             $io->write(sprintf('Dumping classmap for <info>%s</info>', $file->getPathInfo().'/'.$file->getRelativePathname()));
             $dirs = array_filter(self::$subdir_paths, 'file_exists');

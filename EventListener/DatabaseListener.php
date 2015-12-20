@@ -1,9 +1,9 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\EventListener;
+namespace Drufony\Bridge\EventListener;
 
-use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
+use Drufony\Bridge\BootstrapEvents;
+use Drufony\Bridge\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DatabaseListener implements EventSubscriberInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Monolog;
+namespace Drufony\Bridge\Monolog;
 
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
@@ -25,10 +25,9 @@ class WatchdogHandler extends AbstractProcessingHandler
     }
 
     /**
-     * Writes the record down to the log of the implementing handler
+     * Writes the record down to the log of the implementing handler.
      *
-     * @param  array $record
-     * @return void
+     * @param array $record
      */
     protected function write(array $record)
     {

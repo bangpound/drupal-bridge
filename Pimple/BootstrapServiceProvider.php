@@ -1,16 +1,15 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal;
+namespace Drufony\Bridge\Pimple;
 
-use Bangpound\Bridge\Drupal\EventListener\DefaultPhasesListener;
+use Drufony\Bridge\EventListener\DefaultPhasesListener;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Api\EventListenerProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class BootstrapPhases
- * @package Bangpound\Bridge\Drupal
+ * Class BootstrapPhases.
  */
 class BootstrapServiceProvider implements ServiceProviderInterface, EventListenerProviderInterface
 {

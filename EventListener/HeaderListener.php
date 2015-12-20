@@ -1,9 +1,9 @@
 <?php
-namespace Bangpound\Bridge\Drupal\EventListener;
 
-use Bangpound\Bridge\Drupal\BootstrapEvents;
+namespace Drufony\Bridge\EventListener;
+
+use Drufony\Bridge\BootstrapEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents as BaseKernelEvents;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
@@ -32,7 +32,6 @@ class HeaderListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         if (null === $this->matcher || $this->matcher->matches($request)) {
-
             $response = $event->getResponse();
             $headers = drupal_get_http_header();
             $header_names = _drupal_set_preferred_header_name();
@@ -62,7 +61,7 @@ class HeaderListener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritDocs}
+     * {@inheritDocs}.
      */
     public static function getSubscribedEvents()
     {

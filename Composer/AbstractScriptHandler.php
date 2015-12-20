@@ -1,17 +1,17 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Composer;
+namespace Drufony\Bridge\Composer;
 
 use Composer\Script\Event;
 
 /**
- * Class AbstractScriptHandler
- * @package Bangpound\Bridge\Drupal\Composer
+ * Class AbstractScriptHandler.
  */
 class AbstractScriptHandler
 {
     /**
-     * @param  Event $event
+     * @param Event $event
+     *
      * @return array
      */
     protected static function getOptions(Event $event)

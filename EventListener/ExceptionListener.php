@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\EventListener;
+namespace Drufony\Bridge\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
@@ -11,7 +11,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ExceptionListener implements EventSubscriberInterface
 {
-
     /**
      * @var RequestMatcherInterface Matches Drupal routes.
      */

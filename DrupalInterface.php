@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal;
+namespace Drufony\Bridge;
 
 interface DrupalInterface
 {

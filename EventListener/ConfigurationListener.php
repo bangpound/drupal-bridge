@@ -1,15 +1,14 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\EventListener;
+namespace Drufony\Bridge\EventListener;
 
-use Bangpound\Bridge\Drupal\BootstrapEvents;
-use Bangpound\Bridge\Drupal\Event\BootstrapEvent;
-use Bangpound\Bridge\Drupal\Event\GetCallableForPhase;
+use Drufony\Bridge\BootstrapEvents;
+use Drufony\Bridge\Event\BootstrapEvent;
+use Drufony\Bridge\Event\GetCallableForPhase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class ConfigurationListener
- * @package Bangpound\Bridge\Drupal\EventListener
+ * Class ConfigurationListener.
  */
 class ConfigurationListener implements EventSubscriberInterface
 {
@@ -36,7 +35,7 @@ class ConfigurationListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Bangpound\Bridge\Drupal\Event\GetCallableForPhase $event
+     * @param \Drufony\Bridge\Event\GetCallableForPhase $event
      */
     public function onBootstrapConfiguration(GetCallableForPhase $event)
     {
@@ -144,6 +143,7 @@ class ConfigurationListener implements EventSubscriberInterface
      * Initialize the configuration, including variables from settings.php.
      *
      * @param BootstrapEvent $event
+     *
      * @see drupal_settings_initialize
      */
     public function initializeSettings(BootstrapEvent $event)

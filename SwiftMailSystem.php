@@ -1,10 +1,9 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal;
+namespace Drufony\Bridge;
 
 /**
- * Class SwiftMailSystem
- * @package Bangpound\Bridge\Drupal
+ * Class SwiftMailSystem.
  */
 class SwiftMailSystem implements \MailSystemInterface
 {
@@ -260,7 +259,6 @@ class SwiftMailSystem implements \MailSystemInterface
      *
      * @return string
      *                A string being the applicable format.
-     *
      */
     protected function getApplicableFormat($message)
     {
@@ -300,7 +298,6 @@ class SwiftMailSystem implements \MailSystemInterface
      *
      * @return string
      *                A string being the applicable charset.
-     *
      */
     protected function getApplicableCharset($message)
     {
@@ -399,9 +396,9 @@ class SwiftMailSystem implements \MailSystemInterface
      * @param string $value
      *                      The header value.
      *
-     * @return boolean
-     *                 TRUE if the provided header is a parameterized header,
-     *                 and otherwise FALSE.
+     * @return bool
+     *              TRUE if the provided header is a parameterized header,
+     *              and otherwise FALSE.
      */
     protected static function isParameterizedHeader($key, $value)
     {
@@ -474,8 +471,8 @@ class SwiftMailSystem implements \MailSystemInterface
      * @param string $value
      *                      The header value.
      *
-     * @return boolean
-     *                 TRUE if the provided header is a date header, and otherwise FALSE.
+     * @return bool
+     *              TRUE if the provided header is a date header, and otherwise FALSE.
      */
     protected static function isDateHeader($key, $value)
     {
@@ -520,8 +517,8 @@ class SwiftMailSystem implements \MailSystemInterface
      * @param string $value
      *                      The header value.
      *
-     * @return boolean
-     *                 TRUE if the provided header is a mailbox header, and otherwise FALSE.
+     * @return bool
+     *              TRUE if the provided header is a mailbox header, and otherwise FALSE.
      */
     protected static function isMailboxHeader($key, $value)
     {
@@ -569,8 +566,8 @@ class SwiftMailSystem implements \MailSystemInterface
      * @param string $value
      *                      The header value.
      *
-     * @return boolean
-     *                 TRUE if the provided header is an id header, and otherwise FALSE.
+     * @return bool
+     *              TRUE if the provided header is an id header, and otherwise FALSE.
      */
     protected static function isIdHeader($key, $value)
     {
@@ -615,8 +612,8 @@ class SwiftMailSystem implements \MailSystemInterface
      * @param string $value
      *                      The header value.
      *
-     * @return boolean
-     *                 TRUE if the provided header is a path header, and otherwise FALSE.
+     * @return bool
+     *              TRUE if the provided header is a path header, and otherwise FALSE.
      */
     protected static function isPathHeader($key, $value)
     {
@@ -632,11 +629,10 @@ class SwiftMailSystem implements \MailSystemInterface
      *
      * @param \Swift_Message $message
      *                                The message which the path header is to be added to.
-     *
-     * @param string $key
-     *                      The header key.
-     * @param string $value
-     *                      The header value.
+     * @param string         $key
+     *                                The header key.
+     * @param string         $value
+     *                                The header value.
      */
     protected static function addPathHeader(\Swift_Message $message, $key, $value)
     {
@@ -669,6 +665,7 @@ class SwiftMailSystem implements \MailSystemInterface
      *
      * @param $value
      *    A string holding one or more mailboxes.
+     *
      * @return array
      */
     protected static function parseMailboxes($value)
@@ -720,8 +717,8 @@ class SwiftMailSystem implements \MailSystemInterface
      * @param array $message
      *                       The message which is to be validatet.
      *
-     * @return boolean
-     *                 A boolean indicating whether the message is multipart or not.
+     * @return bool
+     *              A boolean indicating whether the message is multipart or not.
      */
     protected static function isMultipart(&$message)
     {

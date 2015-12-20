@@ -1,10 +1,9 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal;
+namespace Drufony\Bridge;
 
 /**
- * Class BootstrapEvents
- * @package Bangpound\Bridge\Drupal
+ * Class BootstrapEvents.
  */
 final class BootstrapEvents
 {
@@ -54,6 +53,7 @@ final class BootstrapEvents
 
     /**
      * @param $phase
+     *
      * @return string
      */
     public static function getEventNameForPhase($phase)
@@ -74,6 +74,7 @@ final class BootstrapEvents
 
     /**
      * @param $phase
+     *
      * @return string
      */
     public static function filterEventNameForPhase($phase)

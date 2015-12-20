@@ -1,10 +1,9 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Twig;
+namespace Drufony\Bridge\Twig;
 
 /**
- * Class UrlExtension
- * @package Bangpound\Bridge\Drupal\Twig
+ * Class UrlExtension.
  */
 class UrlExtension extends \Twig_Extension
 {

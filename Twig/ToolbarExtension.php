@@ -1,12 +1,11 @@
 <?php
 
-namespace Bangpound\Bridge\Drupal\Twig;
+namespace Drufony\Bridge\Twig;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Class ToolbarExtension
- * @package Bangpound\Bridge\Drupal\Twig
+ * Class ToolbarExtension.
  */
 class ToolbarExtension extends \Twig_Extension
 {
