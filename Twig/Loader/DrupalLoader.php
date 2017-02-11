@@ -11,6 +11,10 @@ class DrupalLoader extends \Twig_Loader_Filesystem
      */
     public function __construct($theme, $base_theme = array())
     {
+        // These conditions are true when Drupal is being updated.
+        if ($theme === NULL && $base_theme === NULL) {
+            return;
+        }
         $cached = cache_get($theme.':twig_paths');
 
         $paths = array();
