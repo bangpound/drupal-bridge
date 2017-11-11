@@ -61,7 +61,7 @@ class ScriptHandler extends AbstractScriptHandler
                     $event->getIO()->write(sprintf('Copying Drupal\'s \'%s\' directory to web root', $directory));
                     $filesystem->mkdir($targetDir.'/'.$directory, 0777);
                     // We use a custom iterator to ignore VCS files
-                    $filesystem->mirror($originDir.'/'.$directory, $targetDir.'/'.$directory, Finder::create()->ignoreDotFiles(false)->in($originDir));
+                    $filesystem->mirror($originDir.'/'.$directory, $targetDir.'/'.$directory, null, ['delete' => true, 'override' => true]);
                 }
             }
         }
